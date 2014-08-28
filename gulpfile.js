@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var fs = require('fs');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -33,6 +34,33 @@ gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+    });
+});
+
+gulp.task('swagger', function(){
+    var CodeGen = require('swagger-js-codegen').CodeGen;
+    var apis = [
+        {
+            swagger: 'swagger/queries.json',
+            moduleName: 'queries',
+            className: 'QueriesAPI',
+            fileName: 'queries.js',
+            angularjs: true
+        },
+        {
+            swagger: 'swagger/session.json',
+            moduleName: 'session',
+            className: 'SessionAPI',
+            fileName: 'session.js',
+            angularjs: true
+        }
+    ];
+    var dest = 'www/js/modules';
+    apis.forEach(function(api){
+        var swagger = JSON.parse(fs.readFileSync(api.swagger));
+        var source = api.angularjs === true ? CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger }) : CodeGen.getNodeCode({ className: api.className, swagger: swagger });
+        console.log('Generated ' + api.fileName + ' from ' + api.swagger);
+        fs.writeFileSync(dest + '/' + api.fileName, source, 'UTF-8');
     });
 });
 
