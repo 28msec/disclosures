@@ -12,7 +12,7 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['swagger', 'sass']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -43,24 +43,19 @@ gulp.task('swagger', function(){
         {
             swagger: 'swagger/queries.json',
             moduleName: 'queries',
-            className: 'QueriesAPI',
-            fileName: 'queries.js',
-            angularjs: true
-        },
-        {
+            className: 'QueriesAPI'
+        }, {
             swagger: 'swagger/session.json',
             moduleName: 'session',
-            className: 'SessionAPI',
-            fileName: 'session.js',
-            angularjs: true
+            className: 'SessionAPI'
         }
     ];
-    var dest = 'www/js/modules';
+    var dest = 'www/modules';
     apis.forEach(function(api){
         var swagger = JSON.parse(fs.readFileSync(api.swagger));
-        var source = api.angularjs === true ? CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger }) : CodeGen.getNodeCode({ className: api.className, swagger: swagger });
-        console.log('Generated ' + api.fileName + ' from ' + api.swagger);
-        fs.writeFileSync(dest + '/' + api.fileName, source, 'UTF-8');
+        var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
+        console.log('Generated ' + api.moduleName + '.js from ' + api.swagger);
+        fs.writeFileSync(dest + '/' + api.moduleName + '.js', source, 'UTF-8');
     });
 });
 
