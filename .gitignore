@@ -2,3 +2,6 @@
 node_modules/
 bower_components/
 www/lib
+www/css/ionic.app.css
+www/css/ionic.app.min.css
+platforms/ios
