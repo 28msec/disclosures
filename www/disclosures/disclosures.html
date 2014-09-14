@@ -1,3 +1,9 @@
+<!-- Side menus: http://codepen.io/ionic/pen/tcIGK -->
+<!--
+<ion-nav-view animation="slide-left-right">
+  Center content
+</ion-nav-view>
+-->
 <ion-side-menus>
 
     <ion-side-menu-content>
@@ -18,6 +24,7 @@
     </ion-side-menu-content>
 
     <ion-side-menu expose-aside-when="large">
+
         <ion-header-bar class="bar-royal">
             <ion-tabs class="tabs-positive tabs-icon-only">
                 <ion-tab title="Policies" icon-on="ion-ios7-briefcase" icon-off="ion-ios7-briefcase-outline" href="/disclosures/Policies">
@@ -30,13 +37,27 @@
                 </ion-tab>
             </ion-tabs>
         </ion-header-bar>
+
+        <ion-header-bar class="bar-light bar-subheader">
+            <input type="search"
+                   placeholder="Filter..."
+                   ng-model="search"
+                   ng-focus="searchFocused = true"
+                   ng-blur="searchFocused = false"
+                   ng-change="scrollTop()">
+            <!-- TODO: Add close button http://codepen.io/ionic/pen/mFygh -->
+        </ion-header-bar>
+
         <ion-content>
-            <ion-list>
-                <ion-item ng-repeat="concept in concepts | filter:search | orderBy:'Label'">
-                    {{concept.Label}}
-                </ion-item>
-            </ion-list>
+            <div class="list">
+                <a class="item"
+                   ng-repeat="concept in all | filter:search | orderBy:'Label'"
+                   ui-sref="disclosures.concept">
+                   {{concept.Label}}
+                </a>
+            </div>
         </ion-content>
+
     </ion-side-menu>
 
 </ion-side-menus>
