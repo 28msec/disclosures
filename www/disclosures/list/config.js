@@ -9,9 +9,12 @@ angular.module('disclosures')
         templateUrl: 'disclosures/list/list.html',
         controller: 'DisclosuresListCtrl',
         resolve: {
-            reportSchema: ['$rootScope', '$stateParams', function($rootScope, $stateParams) {
+            reportSchema: function(){
                 return {};
-            }]
+            }
+            //reportSchema: ['$rootScope', '$stateParams', function($rootScope, $stateParams) {
+            //    return {};
+            //}]
         }
     });
 }]);

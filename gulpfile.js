@@ -9,10 +9,25 @@ var sh = require('shelljs');
 var fs = require('fs');
 
 var paths = {
+  json: ['package.json'],
+  js: ['www/**/*.js', '!www/lib/**/*.js'],
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['swagger', 'sass']);
+gulp.task('lint', function(){
+    var jsonlint = require('gulp-jsonlint');
+    var jshint = require('gulp-jshint');
+
+    gulp.src(paths.json)
+        .pipe(jsonlint())
+        .pipe(jsonlint.reporter());
+
+    gulp.src(paths.js.concat(['!www/modules/queries.js', '!www/modules/session.js']))
+        .pipe(jshint())
+        .pipe(jshint.reporter());
+});
+
+gulp.task('default', ['swagger', 'lint', 'sass']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
