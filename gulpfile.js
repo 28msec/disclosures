@@ -1,7 +1,9 @@
+'use strict';
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
-var concat = require('gulp-concat');
+//var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
@@ -10,7 +12,7 @@ var fs = require('fs');
 
 var paths = {
   json: ['package.json'],
-  js: ['www/**/*.js', '!www/lib/**/*.js'],
+  js: ['gulpfile.js', 'www/**/*.js', '!www/lib/**/*.js'],
   sass: ['./scss/**/*.scss']
 };
 
@@ -22,7 +24,7 @@ gulp.task('lint', function(){
         .pipe(jsonlint())
         .pipe(jsonlint.reporter());
 
-    gulp.src(paths.js.concat(['!www/modules/queries.js', '!www/modules/session.js']))
+    gulp.src(paths.js.concat(['!www/modules/*-api.js']))
         .pipe(jshint())
         .pipe(jshint.reporter());
 });
@@ -69,8 +71,8 @@ gulp.task('swagger', function(){
     apis.forEach(function(api){
         var swagger = JSON.parse(fs.readFileSync(api.swagger));
         var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
-        console.log('Generated ' + api.moduleName + '.js from ' + api.swagger);
-        fs.writeFileSync(dest + '/' + api.moduleName + '.js', source, 'UTF-8');
+        console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
+        fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
     });
 });
 
