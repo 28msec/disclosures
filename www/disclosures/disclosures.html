@@ -3,7 +3,9 @@
     <ion-side-menu-content>
         <ion-header-bar class="bar-positive">
             <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
-            <h1 class="title">Content</h1>
+            <h1 class="title">
+                US GAAP Disclosures
+            </h1>
         </ion-header-bar>
         <ion-content class="padding">
             <p>
@@ -18,35 +20,22 @@
     <ion-side-menu expose-aside-when="large">
         <ion-header-bar class="bar-royal">
             <ion-tabs class="tabs-positive tabs-icon-only">
-                <ion-tab title="Policies" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" href="/disclosures/Policies">
-                    <!-- Tab 1 content -->
+                <ion-tab title="Policies" icon-on="ion-ios7-briefcase" icon-off="ion-ios7-briefcase-outline" href="/disclosures/Policies">
                 </ion-tab>
-                <ion-tab title="About" icon-on="ion-ios7-clock" icon-off="ion-ios7-clock-outline" href="/disclosures/Footnotes">
-                    <!-- Tab 2 content -->
+                <ion-tab title="Footnotes" icon-on="ion-ios7-pricetags" icon-off="ion-ios7-pricetags-outline" href="/disclosures/Footnotes">
                 </ion-tab>
-                <ion-tab title="Settings" icon-on="ion-ios7-gear" icon-off="ion-ios7-gear-outline" href="/disclosures/Disclosures">
-                    <!-- Tab 3 content -->
+                <ion-tab title="Disclosures" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" href="/disclosures/Disclosures">
                 </ion-tab>
-                <ion-tab title="All" icon-on="ion-ios7-gear" icon-off="ion-ios7-gear-outline" href="/disclosures/All">
-                    <!-- Tab 4 content -->
+                <ion-tab title="All" icon-on="ion-ios7-albums-outline" icon-off="ion-ios7-albums-outline" href="/disclosures/All">
                 </ion-tab>
             </ion-tabs>
         </ion-header-bar>
         <ion-content>
-            <div class="list">
-                <div class="item">
-                    A few
-                </div>
-                <div class="item">
-                    of my
-                </div>
-                <div class="item">
-                    favorite
-                </div>
-                <div class="item">
-                    things
-                </div>
-            </div>
+            <ion-list>
+                <ion-item ng-repeat="concept in concepts | filter:search | orderBy:'Label'">
+                    {{concept.Label}}
+                </ion-item>
+            </ion-list>
         </ion-content>
     </ion-side-menu>
 
