@@ -65,6 +65,10 @@ gulp.task('swagger', function(){
             swagger: 'swagger/session.json',
             moduleName: 'session',
             className: 'SessionAPI'
+        }, {
+            swagger: 'swagger/reports.json',
+            moduleName: 'reports',
+            className: 'ReportsAPI'
         }
     ];
     var dest = 'www/modules';

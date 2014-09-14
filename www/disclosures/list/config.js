@@ -1,20 +1,17 @@
 'use strict';
 
-angular.module('disclosures')
-.config([ '$stateProvider', function ($stateProvider) {
-
+angular
+.module('disclosures')
+.config(function ($stateProvider) {
     $stateProvider
     .state('disclosures.list', {
         url: '/:list',
         templateUrl: 'disclosures/list/list.html',
         controller: 'DisclosuresListCtrl',
         resolve: {
-            reportSchema: function(){
-                return {};
-            }
-            //reportSchema: ['$rootScope', '$stateParams', function($rootScope, $stateParams) {
-            //    return {};
-            //}]
+            reportSchema: ['DisclosuresAPI', function(DisclosuresAPI){
+                return DisclosuresAPI.getReport();
+            }]
         }
     });
-}]);
+});

@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('disclosures')
-.controller('DisclosuresListCtrl', function() {
-
+.controller('DisclosuresListCtrl', function(reportSchema) {
+    console.log(reportSchema);
 });

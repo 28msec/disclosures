@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('disclosures')
-.config([ '$stateProvider', function ($stateProvider) {
+.config(function ($stateProvider) {
     $stateProvider
     .state('disclosures', {
         url: '/disclosures?fiscalYear&fiscalPeriod&cik&tag&sic',
@@ -9,4 +9,4 @@ angular.module('disclosures')
         controller: 'DisclosuresCtrl',
         abstract: true
     });
-}]);
+});
