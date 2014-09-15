@@ -52,7 +52,7 @@
             <div class="list">
                 <a class="item"
                    ng-repeat="concept in all | filter:search | orderBy:'Label'"
-                   ui-sref="disclosures.concept({ category: cat, concept: concept.Name })">
+                   ui-sref="disclosures.concept({ category: category, concept: concept.Name })">
                    {{concept.Label}}
                 </a>
             </div>
