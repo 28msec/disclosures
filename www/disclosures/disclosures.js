@@ -3,7 +3,7 @@
 angular.module('disclosures')
 .controller('DisclosuresCtrl', function($scope, $stateParams, $ionicSideMenuDelegate, report) {
 
-    var cat = $stateParams.cat;
+    $scope.category = $stateParams.category;
 
     $scope.policies = [];
     $scope.footnotes = [];
