@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('disclosures')
-.config([ '$stateProvider', function ($stateProvider) {
+.config(function ($stateProvider) {
     $stateProvider
     .state('disclosures', {
-        url: '/disclosures?fiscalYear&fiscalPeriod&cik&tag&sic',
+        url: '/disclosures/:category?fiscalYear&fiscalPeriod&cik&tag&sic',
         templateUrl: 'disclosures/disclosures.html',
         controller: 'DisclosuresCtrl',
-        abstract: true
+        resolve: {
+            report: ['DisclosuresAPI', function(DisclosuresAPI){
+                return DisclosuresAPI.getReport().then(function(report){ return report[0]; });
+            }]
+        }
     });
-}]);
+});
