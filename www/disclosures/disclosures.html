@@ -13,13 +13,18 @@
                 US GAAP Disclosures
             </h1>
         </ion-header-bar>
-        <ion-content class="padding">
-            <p>
-                On a small viewport (less than 768px window width), the left menu will be hidden, but can be shown by swiping left to right, or toggling the button in the top left of the header. On a large viewport (greater than or equal to 768px), the left menu will stay open.
-            </p>
-            <p>
-                Using <code>large</code> as the attribute's value is an alias to <code>(min-width:768px)</code> since it is the most common use-case. However, for added flexibility, any valid media query could be added as the value, such as <code>(min-width:600px)</code> or even multiple queries such as <code>(min-width:750px) and (max-width:1200px)</code>.
-            </p>
+        <ion-content>
+            <ui-view>
+                <div class="padding">
+                    <h1>US GAAP Disclosures</h1>
+                    <p>
+                        This application provides its user ability to research financial report policies, footnotes, and specific disclosures provided to the U.S. Securities and Exchange Commission (SEC) by public companies that are required to report to the SEC.
+                    </p>
+                    <p>
+                        These high quality financial disclosures can be used as examples by accountants when creating their own financial report disclosures. These disclosures allow accountants to compare and contrast specific wording, what a disclosure contains, and other information for hundreds of disclosures.
+                    </p>
+                </div>
+            </ui-view>
         </ion-content>
     </ion-side-menu-content>
 
