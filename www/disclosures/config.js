@@ -29,7 +29,7 @@ angular.module('disclosures')
                     });
 
                     DisclosuresAPI.addToken(params).addFilter(params);
-                    params.name = names.join("&");
+                    params.name = names.join('&');
                     return DisclosuresAPI.Queries.listReportElements(params).then(function(data){
                         return {
                             report: report,

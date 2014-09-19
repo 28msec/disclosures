@@ -60,11 +60,11 @@ gulp.task('swagger', function(done){
     var CodeGen = require('swagger-js-codegen').CodeGen;
     var apis = [
         {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/app/swagger/queries.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/rest/app/swagger/queries.json',
             moduleName: 'queries',
             className: 'QueriesAPI'
         }, {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/app/swagger/session.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/rest/app/swagger/session.json',
             moduleName: 'session',
             className: 'SessionAPI'
         }, {
