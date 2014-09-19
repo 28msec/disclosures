@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('disclosures')
-.controller('DisclosuresCtrl', function($scope, $stateParams, $ionicSideMenuDelegate, report) {
+.controller('DisclosuresCtrl', function($scope, $stateParams, $ionicSideMenuDelegate, disclosures) {
+    var report = disclosures.report;
+    var reportElements = disclosures.reportElements;
 
     $scope.category = $stateParams.category;
 
+    $scope.used = {};
     $scope.policies = [];
     $scope.footnotes = [];
     $scope.disclosures = [];
-    $scope.all = [];
 
-    $scope.concepts = [];
     report.Networks.forEach(function(network) {
         if (network.LinkName === 'link:presentationLink')
         {
@@ -25,11 +26,11 @@ angular.module('disclosures')
                     container = $scope.disclosures;
                 }
                 _.forEach(hierarchy.To, function(concept){
+                    if(reportElements.indexOf(concept.Name) !== -1) {
+                        $scope.used[concept.Name] = true;
+                    }
                     container.push(concept);
                 });
-            });
-            $scope.all = _.reduce([$scope.policies, $scope.footnotes, $scope.disclosures], function(a, b){
-                return a.concat(b);
             });
         }
     });

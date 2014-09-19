@@ -13,32 +13,24 @@
                 US GAAP Disclosures
             </h1>
         </ion-header-bar>
-        <ion-content class="padding">
-            <p>
-                On a small viewport (less than 768px window width), the left menu will be hidden, but can be shown by swiping left to right, or toggling the button in the top left of the header. On a large viewport (greater than or equal to 768px), the left menu will stay open.
-            </p>
-            <p>
-                Using <code>large</code> as the attribute's value is an alias to <code>(min-width:768px)</code> since it is the most common use-case. However, for added flexibility, any valid media query could be added as the value, such as <code>(min-width:600px)</code> or even multiple queries such as <code>(min-width:750px) and (max-width:1200px)</code>.
-            </p>
+        <ion-content>
+            <ion-nav-view animation="slide-left-right">
+                <div class="padding">
+                    <h1>US GAAP Disclosures</h1>
+                    <p>
+                        This application provides its user ability to research financial report policies, footnotes, and specific disclosures provided to the U.S. Securities and Exchange Commission (SEC) by public companies that are required to report to the SEC.
+                    </p>
+                    <p>
+                        These high quality financial disclosures can be used as examples by accountants when creating their own financial report disclosures. These disclosures allow accountants to compare and contrast specific wording, what a disclosure contains, and other information for hundreds of disclosures.
+                    </p>
+                </div>
+            </ion-nav-view>
         </ion-content>
     </ion-side-menu-content>
 
     <ion-side-menu expose-aside-when="large">
 
-        <ion-header-bar class="bar-royal">
-            <ion-tabs class="tabs-positive tabs-icon-only">
-                <ion-tab title="Policies" icon-on="ion-ios7-briefcase" icon-off="ion-ios7-briefcase-outline" href="/disclosures/Policies">
-                </ion-tab>
-                <ion-tab title="Footnotes" icon-on="ion-ios7-pricetags" icon-off="ion-ios7-pricetags-outline" href="/disclosures/Footnotes">
-                </ion-tab>
-                <ion-tab title="Disclosures" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" href="/disclosures/Disclosures">
-                </ion-tab>
-                <ion-tab title="All" icon-on="ion-ios7-albums-outline" icon-off="ion-ios7-albums-outline" href="/disclosures/All">
-                </ion-tab>
-            </ion-tabs>
-        </ion-header-bar>
-
-        <ion-header-bar class="bar-light bar-subheader">
+        <ion-header-bar class="bar-light bar-header">
             <input type="search"
                    placeholder="Filter..."
                    ng-model="search"
@@ -50,10 +42,36 @@
 
         <ion-content>
             <div class="list">
+                <!-- Policies -->
+                <div class="item item-divider">
+                    Policies
+                </div>
                 <a class="item"
-                   ng-repeat="concept in all | filter:search | orderBy:'Label'"
-                   ui-sref="disclosures.concept({ category: cat, concept: concept.Name })">
-                   {{concept.Label}}
+                   ng-repeat="concept in policies | filter:search | orderBy:'Label'"
+                   ui-sref="disclosures.concept({ category: 'Policies', concept: concept.Name })"
+                   ng-class="{ disabled: used[concept.Name] !== true }">
+                    {{concept.Label}}
+                </a>
+
+                <!-- Footnotes -->
+                <div class="item item-divider">
+                    Footnotes
+                </div>
+                <a class="item"
+                   ng-repeat="concept in footnotes | filter:search | orderBy:'Label'"
+                   ui-sref="disclosures.concept({ category: 'Footnotes', concept: concept.Name })"
+                   ng-class="{ disabled: used[concept.Name] !== true }">
+                    {{concept.Label}}
+                </a>
+
+                <div class="item item-divider">
+                    Disclosures
+                </div>
+                <a class="item"
+                   ng-repeat="concept in disclosures | filter:search | orderBy:'Label'"
+                   ui-sref="disclosures.concept({ category: 'Disc', concept: concept.Name })"
+                   ng-class="{ disabled: used[concept.Name] !== true }">
+                    {{concept.Label}}
                 </a>
             </div>
         </ion-content>
