@@ -49,7 +49,7 @@
                 <a class="item"
                    ng-repeat="concept in policies | filter:search | orderBy:'Label'"
                    ui-sref="disclosures.concept({ category: 'Policies', concept: concept.Name })"
-                   ng-class="{ disabled: concept.Used !== true }">
+                   ng-class="{ disabled: used[concept.Name] !== true }">
                     {{concept.Label}}
                 </a>
 
@@ -60,7 +60,7 @@
                 <a class="item"
                    ng-repeat="concept in footnotes | filter:search | orderBy:'Label'"
                    ui-sref="disclosures.concept({ category: 'Footnotes', concept: concept.Name })"
-                   ng-class="{ disabled: concept.Used !== true }">
+                   ng-class="{ disabled: used[concept.Name] !== true }">
                     {{concept.Label}}
                 </a>
 

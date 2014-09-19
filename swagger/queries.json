@@ -1302,7 +1302,7 @@
                             "description": "The name of the report element to return (e.g. us-gaap:Assets).",
                             "required": false,
                             "type": "string",
-                            "paramType": "query"
+                            "paramType": "body"
                         },
                         {
                             "name": "label",
@@ -1317,6 +1317,16 @@
                             "required": false,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "description": "Content-Type of the request.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "header",
+                            "enum": [
+                                "application/x-www-form-urlencoded"
+                            ]
                         },
                         {
                             "name": "_method",

@@ -28,7 +28,6 @@ angular.module('disclosures')
                 _.forEach(hierarchy.To, function(concept){
                     if(reportElements.indexOf(concept.Name) !== -1) {
                         $scope.used[concept.Name] = true;
-                        console.log("FOUND");
                     }
                     container.push(concept);
                 });
