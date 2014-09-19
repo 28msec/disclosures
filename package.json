@@ -14,6 +14,8 @@
     "gulp-jshint": "^1.8.4",
     "gulp-jsonlint": "^0.1.0",
     "gulp-util": "^2.2.14",
+    "q": "^1.0.1",
+    "request": "^2.44.0",
     "shelljs": "^0.3.0",
     "swagger-js-codegen": "^0.2.0"
   }

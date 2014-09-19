@@ -54,29 +54,43 @@ gulp.task('install', ['git-check'], function() {
     });
 });
 
-gulp.task('swagger', function(){
+gulp.task('swagger', function(done){
+    var request = require('request');
+    var Q = require('q');
     var CodeGen = require('swagger-js-codegen').CodeGen;
     var apis = [
         {
-            swagger: 'swagger/queries.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/app/swagger/queries.json',
             moduleName: 'queries',
             className: 'QueriesAPI'
         }, {
-            swagger: 'swagger/session.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/app/swagger/session.json',
             moduleName: 'session',
             className: 'SessionAPI'
         }, {
-            swagger: 'swagger/reports.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/rest/app/swagger/reports.json',
             moduleName: 'reports',
             className: 'ReportsAPI'
         }
     ];
     var dest = 'www/modules';
+    var promises = [];
     apis.forEach(function(api){
-        var swagger = JSON.parse(fs.readFileSync(api.swagger));
-        var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
-        console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
-        fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
+        var deferred = Q.defer();
+        request({
+            uri: api.swagger,
+            method: 'GET'
+        }, function(error, response, body){
+            var swagger = JSON.parse(body);
+            var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
+            console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
+            fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
+            deferred.resolve();
+        });
+        promises.push(deferred.promise);
+    });
+    Q.all(promises).then(function(){
+        done();
     });
 });
 
