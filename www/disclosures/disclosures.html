@@ -7,25 +7,12 @@
 <ion-side-menus>
 
     <ion-side-menu-content>
-        <ion-header-bar class="bar-positive">
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-back-button class="button-icon icon ion-chevron-left"></ion-nav-back-button>
             <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
-            <h1 class="title">
-                US GAAP Disclosures
-            </h1>
-        </ion-header-bar>
-        <ion-content>
-            <ion-nav-view animation="slide-left-right">
-                <div class="padding">
-                    <h1>US GAAP Disclosures</h1>
-                    <p>
-                        This application provides its user ability to research financial report policies, footnotes, and specific disclosures provided to the U.S. Securities and Exchange Commission (SEC) by public companies that are required to report to the SEC.
-                    </p>
-                    <p>
-                        These high quality financial disclosures can be used as examples by accountants when creating their own financial report disclosures. These disclosures allow accountants to compare and contrast specific wording, what a disclosure contains, and other information for hundreds of disclosures.
-                    </p>
-                </div>
-            </ion-nav-view>
-        </ion-content>
+        </ion-nav-bar>
+        <ion-nav-view animation="slide-left-right">
+        </ion-nav-view>
     </ion-side-menu-content>
 
     <ion-side-menu expose-aside-when="large">
