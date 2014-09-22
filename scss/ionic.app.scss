@@ -21,6 +21,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .disabled {
   filter: Alpha(Opacity=30);
   opacity: .3;

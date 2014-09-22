@@ -4,7 +4,7 @@ angular.module('disclosures')
 .config(function ($stateProvider) {
     $stateProvider
     .state('disclosures', {
-        url: '/disclosures?fiscalYear&fiscalPeriod&cik&tag&sic',
+        url: '/disclosures',//?fiscalYear&fiscalPeriod&cik&tag&sic
         templateUrl: 'disclosures/disclosures.html',
         controller: 'DisclosuresCtrl',
         abstract: true,
@@ -41,8 +41,11 @@ angular.module('disclosures')
             }]
         }
     })
-    .state('disclosures.default', {
-        url: '/default',
-        templateUrl: 'disclosures/default.html'
-    });
+    ;
+
+        $stateProvider.state('disclosures.filter', {
+            url: '/filter',
+            templateUrl: 'disclosures/filter/filter.html',
+            controller: 'FilterCtrl'
+        });
 });

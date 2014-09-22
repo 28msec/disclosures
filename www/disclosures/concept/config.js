@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('disclosures')
+angular
+.module('disclosures')
 .config(function ($stateProvider) {
     $stateProvider
     .state('disclosures.concept', {
