@@ -4,9 +4,10 @@ angular.module('disclosures')
 .config(function ($stateProvider) {
     $stateProvider
     .state('disclosures', {
-        url: '/disclosures/:category?fiscalYear&fiscalPeriod&cik&tag&sic',
+        url: '/disclosures?fiscalYear&fiscalPeriod&cik&tag&sic',
         templateUrl: 'disclosures/disclosures.html',
         controller: 'DisclosuresCtrl',
+        abstract: true,
         resolve: {
             disclosures: ['DisclosuresAPI', function(DisclosuresAPI){
                 return DisclosuresAPI.getReport().then(function(report){
@@ -39,5 +40,9 @@ angular.module('disclosures')
                 });
             }]
         }
+    })
+    .state('disclosures.default', {
+        url: '/default',
+        templateUrl: 'disclosures/default.html'
     });
 });
