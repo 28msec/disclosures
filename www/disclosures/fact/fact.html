@@ -1,4 +1,6 @@
-<div class="padding">
-    <h2>{{factEntity}} <small>({{factFiscalYear}}/{{factFiscalPeriod}})</small></h2>
-    <div ng-bind-html="factValue"></div>
-</div>
+<ion-view title="{{factEntity}}">
+    <ion-content class="padding">
+        <h2>{{factEntity}} <small>({{factFiscalYear}}/{{factFiscalPeriod}})</small></h2>
+        <div ng-bind-html="factValue"></div>
+    </ion-content>
+</ion-view>

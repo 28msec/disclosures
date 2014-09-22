@@ -5,6 +5,14 @@ angular.module('disclosures')
     var report = disclosures.report;
     var reportElements = disclosures.reportElements;
 
+
+    $scope.leftButtons = [{
+        type: 'button-icon button-clear ion-navicon',
+        tap: function() {
+            $ionicSideMenuDelegate.toggleLeft($scope.$$childHead);
+        }
+    }];
+
     $scope.category = $stateParams.category;
 
     $scope.used = {};
