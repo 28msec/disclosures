@@ -8,19 +8,14 @@ angular.module('disclosures')
         templateUrl: 'disclosures/concept/concept.html',
         controller: 'ConceptCtrl',
         resolve: {
-            concept: ['$stateParams', 'DisclosuresAPI', function($stateParams, DisclosuresAPI) {
+            reportElements: ['$stateParams', 'DisclosuresAPI', function($stateParams, DisclosuresAPI) {
                 var params = {
-                    cik : ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag : ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear : ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod : ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic : ($stateParams.sic ? $stateParams.sic.split(',') : []),
-                    map : 'Disclosures',
-                    name: $stateParams.concept,
-                    token: DisclosuresAPI.getToken()
+                    name: 'name=' + encodeURIComponent($stateParams.concept)
                 };
-                return DisclosuresAPI.Queries.listReportElements(params).catch(function(error){
-                    console.error(error);
+                DisclosuresAPI.addToken(params).addFilter(params);
+                return DisclosuresAPI.Queries.listReportElements(params)
+                .then(function(elements){
+                    return elements.ReportElements;
                 });
             }]
         }

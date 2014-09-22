@@ -2,11 +2,8 @@
 
 angular
 .module('disclosures')
-.controller('ConceptCtrl', function($scope, concept){
-        console.log(concept);
-    $scope.concept = concept;
-    $scope.select = function(aid) {
-        $scope.aid = aid;
-    };
+.controller('ConceptCtrl', function($scope, $stateParams, reportElements){
+    $scope.reportElements = reportElements;
+    $scope.concept = $stateParams.concept;
 })
 ;

@@ -1,8 +1,9 @@
 <div class="padding">
     <div class="list">
         <a class="item"
-           ng-repeat="reportElements in concept.ReportElements | filter:search | orderBy:['EntityRegistrantName','-FiscalYear']">
-            {{reportElements.EntityRegistrantName}}
+           ng-repeat="element in reportElements | filter:search | orderBy:['EntityRegistrantName','-FiscalYear']"
+           ui-sref="disclosures.fact({ concept: concept, aid: element.AccessionNumber })">
+            {{element.EntityRegistrantName}}
         </a>
     </div>
 </div>
