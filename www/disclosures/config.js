@@ -42,10 +42,4 @@ angular.module('disclosures')
         }
     })
     ;
-
-        $stateProvider.state('disclosures.filter', {
-            url: '/filter',
-            templateUrl: 'disclosures/filter/filter.html',
-            controller: 'FilterCtrl'
-        });
 });
