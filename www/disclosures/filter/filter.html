@@ -5,8 +5,15 @@
                 Entities or Entity Group
             </div>
             <div class="item item-text-wrap">
-                <h2>Selected:</h2>
-                <p>Lorem impsum...</p>
+                <h2>Selected</h2>
+                <div class="tag-tag" ng-repeat="tag in filter.tag">
+                    <a class="close" ng-click="filter.tag.splice($index, 1)">&times;</a>
+                    {{tag}}
+                </div>
+                <div class="tag-cik" ng-repeat="c in filter.cik">
+                    <a class="close" ng-click="filter.cik.splice($index, 1)">&times;</a>
+                    {{getEntity(c).name}}
+                </div>
             </div>
             <div class="item item-divider uppercase">
                 Fiscal Year & Period

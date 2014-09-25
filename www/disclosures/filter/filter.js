@@ -2,7 +2,7 @@
 
 angular
 .module('disclosures')
-.controller('FilterCtrl', function($scope){
-    console.log($scope);
+.controller('FilterCtrl', function($scope, DisclosureAPI){
+    $scope.filter = DisclosureAPI.filter;
 })
 ;
