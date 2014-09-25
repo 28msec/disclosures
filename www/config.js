@@ -19,6 +19,5 @@ angular.module('disclosures', ['ionic', 'disclosures.api'])
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/disclosures/default');
+    $urlRouterProvider.otherwise('/disclosures/filter');
 });
-
