@@ -9,7 +9,7 @@ $ gulp
 $ ionic serve
 ```
 
-###Build of ios
+###iOS Build
 ```bash
 $ ionic add build ios
 $ ionic build ios
