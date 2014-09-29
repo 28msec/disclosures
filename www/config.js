@@ -1,9 +1,25 @@
 'use strict';
 
-// Ionic Starter App
+window.onerror = function(message, url, line, col, error){
+    var stopPropagation = false;
+    var data = {
+        type: 'javascript',
+        url: window.location.hash,
+        localtime: Date.now()
+    };
+    if(message)       { data.message      = message;      }
+    if(url)           { data.fileName     = url;          }
+    if(line)          { data.lineNumber   = line;         }
+    if(col)           { data.columnNumber = col;          }
+    if(error){
+        if(error.name)  { data.name         = error.name;   }
+        if(error.stack) { data.stack        = error.stack;  }
+    }
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+    console.error(data);
+    return stopPropagation;
+};
+
 angular.module('disclosures', ['ionic', 'disclosures.api'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,6 +34,27 @@ angular.module('disclosures', ['ionic', 'disclosures.api'])
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($provide, $stateProvider, $urlRouterProvider) {
+
+        $provide.decorator('$exceptionHandler', ['$delegate', function($delegate){
+            return function(exception, cause){
+                $delegate(exception, cause);
+
+                var data = {
+                    type: 'angular',
+                    url: window.location.hash,
+                    localtime: Date.now()
+                };
+                if(cause)               { data.cause    = cause;              }
+                if(exception){
+                    if(exception.message) { data.message  = exception.message;  }
+                    if(exception.name)    { data.name     = exception.name;     }
+                    if(exception.stack)   { data.stack    = exception.stack;    }
+                }
+
+                console.error(data);
+            };
+        }]);
+
     $urlRouterProvider.otherwise('/disclosures/filter');
 });

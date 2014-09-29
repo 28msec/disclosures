@@ -11,7 +11,6 @@ angular.module('disclosures')
         resolve: {
             disclosures: ['DisclosuresAPI', function(DisclosuresAPI){
                 return DisclosuresAPI.getReport().then(function(report){
-                    report = report[0];
                     var params = {
                         onlyNames: true,
                         contentType: 'application/x-www-form-urlencoded'
@@ -42,4 +41,5 @@ angular.module('disclosures')
         }
     })
     ;
-});
+})
+;
