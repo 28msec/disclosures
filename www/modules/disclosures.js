@@ -28,6 +28,8 @@ angular
             return this.Reports.listReports({
                 _id: 'Disclosures',
                 token: TOKEN
+            }).then(function(reports){
+                return reports[0];
             });
         },
 
