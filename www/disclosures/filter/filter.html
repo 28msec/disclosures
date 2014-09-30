@@ -4,9 +4,22 @@
             <div class="item item-divider uppercase">
                 Entities or Entity Group
             </div>
+            <label class="item item-input">
+                <input type="text" placeholder="Search for an entity or entity group" ng-change="searchEntity()" ng-model="filter.searchEntity">
+            </label>
+            <div class="item">
+                <li class="item" ng-repeat="entity in entitiesCompletion">
+                    <a ng-click="selectEntity(entity)" ng-bind="entity.name"></a>
+                </li>
+            </div>
             <div class="item item-text-wrap">
-                <h2>Selected:</h2>
-                <p>Lorem impsum...</p>
+                <h2>Selected</h2>
+                <ion-list show-delete="true">
+                    <ion-item ng-repeat="entity in filter.entities">
+                        {{entity.name}}
+                        <ion-delete-button class="ion-minus-circled" ng-click="filter.entities.splice($index, 1)"></ion-delete-button>
+                    </ion-item>
+                </ion-list>
             </div>
             <div class="item item-divider uppercase">
                 Fiscal Year & Period
