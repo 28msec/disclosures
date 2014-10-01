@@ -9,8 +9,11 @@ angular
             templateUrl: 'disclosures/filter/filter.html',
             controller: 'FilterCtrl',
             resolve: {
-                filterParameters: ['DisclosuresAPI', function(DisclosuresAPI){
-                    return DisclosuresAPI.Reports.getParameters();
+                filterParameters: ['DisclosuresAPI', function(DisclosuresAPI) {
+                	return DisclosuresAPI.Reports.getParameters({});                	
+                }],
+                filters: ['Filters', function(Filters) {
+                	return Filters;
                 }]
             }
         });

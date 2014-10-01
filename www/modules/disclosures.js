@@ -1,8 +1,8 @@
 'use strict';
 
 angular
-.module('disclosures.api', ['queries', 'session', 'reports'])
-.factory('DisclosuresAPI', function(QueriesAPI, SessionAPI, ReportsAPI){
+.module('disclosures.api', ['queries', 'session', 'reports','filters'])
+.factory('DisclosuresAPI', function(QueriesAPI, SessionAPI, ReportsAPI, Filters){
     var TOKEN = 'becd3d60-d470-446e-8b5a-b6d6e4391331';
     var API_URL = 'https://secxbrl.28.io/v1';
     return {
@@ -11,14 +11,7 @@ angular
         Session: new SessionAPI(API_URL + '/_queries/public'),
         Reports: new ReportsAPI(API_URL + '/_queries/public/reports'),
 
-        filter: {
-            cik : [],
-            tag : ['DOW30'],
-            fiscalYear : ['2013'],
-            fiscalPeriod : ['FY'],
-            sic : [],
-            map : 'Disclosures'
-        },
+        filter: Filters,
 
         getToken: function(){
             return TOKEN;

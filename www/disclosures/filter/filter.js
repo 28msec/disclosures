@@ -2,10 +2,10 @@
 
 angular
 .module('disclosures')
-.controller('FilterCtrl', function($scope, filterParameters){
-    $scope.filter = {
-        entities: []
-    };
+.controller('FilterCtrl', function($scope, filters, filterParameters){
+	
+    $scope.filter = filters;    
+    $scope.filterParameters = filterParameters;
 
     $scope.selectEntity = function(entity) {
         $scope.filter.entities.push(entity);
@@ -23,6 +23,20 @@ angular
         }
         $scope.entitiesCompletion = matches;
     };
-    //console.log(filterParameters);
+    
+    $scope.isSelected = function (list,item) {
+    	return list.indexOf(item) > -1;
+    };
+    
+    $scope.toggleSelection = function (list,item) {
+        var idx = list.indexOf(item);
+       
+        if (idx > -1) {
+          list.splice(idx, 1);
+        } else {
+          list.push(item);
+        }
+    };
+   
 })
 ;

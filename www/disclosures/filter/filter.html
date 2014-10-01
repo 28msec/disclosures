@@ -21,12 +21,29 @@
                     </ion-item>
                 </ion-list>
             </div>
+            
             <div class="item item-divider uppercase">
-                Fiscal Year & Period
-            </div>
+                Entity Group
+            </div>               
             <div class="item item-text-wrap">
-                <p>Lorem impsum...</p>
+               <ion-checkbox ng-repeat="tag in filterParameters.tags" ng-checked="isSelected(filter.tags, tag)" ng-click="toggleSelection(filter.tags, tag)">{{ tag }}</ion-checkbox>                            
             </div>
+            
+            
+            <div class="item item-divider uppercase">
+                Fiscal Period
+            </div>               
+            <div class="item item-text-wrap">
+               <ion-checkbox ng-repeat="period in filterParameters.periods" ng-checked="isSelected(filter.periods, period)" ng-click="toggleSelection(filter.periods, period)">{{ period }}</ion-checkbox>                            
+            </div>
+            
+             <div class="item item-divider uppercase">
+                Fiscal Year
+            </div>               
+            <div class="item item-text-wrap">               
+               <ion-checkbox ng-repeat="year in filterParameters.years" ng-checked="isSelected(filter.years, year)" ng-click="toggleSelection(filter.years, year)">{{ year }}</ion-checkbox>              
+            </div>
+            
         </div>
     </ion-content>
 </ion-view>
