@@ -13,7 +13,8 @@ angular.module('disclosures')
                 return DisclosuresAPI.getReport().then(function(report){
                     var params = {
                         onlyNames: true,
-                        contentType: 'application/x-www-form-urlencoded'
+                        contentType: 'application/x-www-form-urlencoded',
+                        report: 'Disclosures'
                     };
                     var names = [];
                     report.Networks.forEach(function(network) {
@@ -27,7 +28,6 @@ angular.module('disclosures')
                             });
                         }
                     });
-
                     DisclosuresAPI.addToken(params).addFilter(params);
                     params.name = names.join('&');
                     return DisclosuresAPI.Queries.listReportElements(params).then(function(data){

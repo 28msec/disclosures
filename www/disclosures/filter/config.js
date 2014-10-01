@@ -11,9 +11,6 @@ angular
             resolve: {
                 filterParameters: ['DisclosuresAPI', function(DisclosuresAPI) {
                 	return DisclosuresAPI.Reports.getParameters({});                	
-                }],
-                filters: ['Filters', function(Filters) {
-                	return Filters;
                 }]
             }
         });

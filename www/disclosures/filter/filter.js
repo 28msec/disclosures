@@ -2,9 +2,9 @@
 
 angular
 .module('disclosures')
-.controller('FilterCtrl', function($scope, filters, filterParameters){
+.controller('FilterCtrl', function($scope, DisclosuresAPI, filterParameters){
 	
-    $scope.filter = filters;    
+    $scope.filter = DisclosuresAPI.filter;
     $scope.filterParameters = filterParameters;
 
     $scope.selectEntity = function(entity) {
@@ -14,7 +14,7 @@ angular
     $scope.searchEntity = function() {
         var matches = [];
         var searchTerm = $scope.filter.searchEntity.toLowerCase();
-        if(searchTerm != '') {
+        if(searchTerm !== '') {
             filterParameters.entities.forEach(function(entity){
                 if(entity.name.toLowerCase().indexOf(searchTerm) !== -1) {
                     matches.push(entity);
