@@ -15,7 +15,7 @@ angular
         {
             cik: [],
             fiscalPeriod: ['FY'],
-            fiscalYear: [2014],
+            fiscalYear: [2013],
             tag: ['DOW30']
         },
 
