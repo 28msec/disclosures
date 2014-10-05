@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('disclosures', ['ionic', 'disclosures.api'])
-.run(function($ionicPlatform) {
+.run(function($rootScope, $ionicPlatform) {
+	    
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+	 console.error(error);	      
+  });
+	
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -14,6 +19,7 @@ angular.module('disclosures', ['ionic', 'disclosures.api'])
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise('/disclosures/filter');
-});
+})
+;
