@@ -26,7 +26,7 @@
                 Entity Group
             </div>               
             <div class="item item-text-wrap">
-               <ion-checkbox ng-repeat="tag in filterParameters.tags" ng-checked="isSelected(filter.tags, tag)" ng-click="toggleSelection(filter.tags, tag)">{{ tag }}</ion-checkbox>                            
+               <ion-checkbox ng-repeat="tag in filterParameters.tags" ng-checked="isSelected(filter.tag, tag)" ng-click="toggleSelection(filter.tag, tag)">{{ tag }}</ion-checkbox>                            
             </div>
             
             
@@ -34,14 +34,14 @@
                 Fiscal Period
             </div>               
             <div class="item item-text-wrap">
-               <ion-checkbox ng-repeat="period in filterParameters.periods" ng-checked="isSelected(filter.periods, period)" ng-click="toggleSelection(filter.periods, period)">{{ period }}</ion-checkbox>                            
+               <ion-checkbox ng-repeat="period in filterParameters.periods" ng-checked="isSelected(filter.fiscalPeriod, period)" ng-click="toggleSelection(filter.fiscalPeriod, period)">{{ period }}</ion-checkbox>                            
             </div>
             
              <div class="item item-divider uppercase">
                 Fiscal Year
             </div>               
             <div class="item item-text-wrap">               
-               <ion-checkbox ng-repeat="year in filterParameters.years" ng-checked="isSelected(filter.years, year)" ng-click="toggleSelection(filter.years, year)">{{ year }}</ion-checkbox>              
+               <ion-checkbox ng-repeat="year in filterParameters.years" ng-checked="isSelected(filter.fiscalYear, year)" ng-click="toggleSelection(filter.fiscalYear, year)">{{ year }}</ion-checkbox>              
             </div>
             
         </div>
