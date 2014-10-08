@@ -1,9 +1,8 @@
 <ion-side-menus>
 
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-positive">
-            <ion-nav-back-button class="button-icon icon ion-chevron-left"></ion-nav-back-button>
-            <button ui-sref="disclosures.filter()" class="button-icon icon ion-gear-a"></button>
+        <ion-nav-bar class="bar-positive">            
+            <button ng-click="up()" class="button button-icon icon ion-chevron-left"></button>            
             <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
         </ion-nav-bar>
         <ion-nav-view animation="slide-left-right">
@@ -30,7 +29,8 @@
                 </div>
                 <a class="item"
                    ng-repeat="concept in policies | filter:search | orderBy:'Label'"
-                   ui-sref="disclosures.concept({ category: 'Policies', concept: concept.Name })"
+                   ng-click="select({ category: 'Policies', concept: concept.Name });"
+                   
                    ng-class="{ disabled: used[concept.Name] !== true }">
                     {{concept.Label}}
                 </a>

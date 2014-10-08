@@ -15,6 +15,7 @@ angular
                     name: 'name=' + encodeURIComponent($stateParams.concept)
                 };
                 DisclosuresAPI.addToken(params).addFilter(params);
+                DisclosuresAPI.setAid(null);
                 return DisclosuresAPI.Queries.listReportElements(params)
                 .then(function(elements){                	
                     return elements.ReportElements;
