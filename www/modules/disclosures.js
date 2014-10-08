@@ -18,6 +18,8 @@ angular
             fiscalYear: [2014],
             tag: ['DOW30']
         },
+        
+        aid : null,
 
         getToken: function(){
             return TOKEN;
@@ -35,6 +37,10 @@ angular
         addToken: function(params) {
             params.token = TOKEN;
             return this;
+        },
+        
+        setAid : function(aid) {
+            this.aid = aid;
         },
 
         addFilter: function(params){

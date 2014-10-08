@@ -15,6 +15,7 @@ angular.module('disclosures')
                             aid: $stateParams.aid
                         };
                         DisclosuresAPI.addToken(params);
+                        DisclosuresAPI.setAid($stateParams.aid);
                         return DisclosuresAPI.Queries.listFacts(params).then(function(data){
                             return data;
                         });
