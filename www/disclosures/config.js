@@ -9,7 +9,7 @@ angular.module('disclosures')
         controller: 'DisclosuresCtrl',
         abstract: true,
         resolve: {
-            disclosures: ['DisclosuresAPI', function(DisclosuresAPI){
+            disclosures: ['_', 'DisclosuresAPI', function(_ , DisclosuresAPI){
                 return DisclosuresAPI.getReport().then(function(report){
                     var params = {
                         onlyNames: true,

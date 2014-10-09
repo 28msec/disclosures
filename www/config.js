@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('disclosures', ['ionic', 'disclosures.api'])
+angular.module('disclosures', ['lodash', 'ionic', 'disclosures.api'])
 .run(function($rootScope, $ionicPlatform) {
 	    
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
