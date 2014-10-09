@@ -32,7 +32,7 @@ gulp.task('jsonlint', function(){
         .pipe(jsonlint())
         .pipe(jsonlint.reporter())
         .pipe(map(function(file, cb) {
-            if (!file.jshint.success) {
+            if (!file.jsonlint.success) {
                 process.exit(1);
             }
             cb(null, file);
