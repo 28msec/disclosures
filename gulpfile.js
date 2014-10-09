@@ -3,12 +3,15 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
-//var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var fs = require('fs');
+var map = require('map-stream');
+var failOnError = map(function() {
+    process.exit(1);
+});
 
 var paths = {
   json: ['package.json'],
@@ -21,7 +24,8 @@ gulp.task('jslint', function(){
 
     return gulp.src(paths.js.concat(['!www/modules/*-api.js']))
         .pipe(jshint())
-        .pipe(jshint.reporter());
+        .pipe(jshint.reporter())
+        .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('jsonlint', function(){
@@ -29,7 +33,8 @@ gulp.task('jsonlint', function(){
 
     return gulp.src(paths.json)
         .pipe(jsonlint())
-        .pipe(jsonlint.reporter());
+        .pipe(jsonlint.reporter())
+        .pipe(failOnError);
 });
 
 gulp.task('lint', ['jslint', 'jsonlint']);
