@@ -16,35 +16,39 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('lint', function(){
-    var jsonlint = require('gulp-jsonlint');
+gulp.task('jslint', function(){
     var jshint = require('gulp-jshint');
 
-    gulp.src(paths.json)
-        .pipe(jsonlint())
-        .pipe(jsonlint.reporter());
-
-    gulp.src(paths.js.concat(['!www/modules/*-api.js']))
+    return gulp.src(paths.js.concat(['!www/modules/*-api.js']))
         .pipe(jshint())
         .pipe(jshint.reporter());
 });
 
+gulp.task('jsonlint', function(){
+    var jsonlint = require('gulp-jsonlint');
+
+    return gulp.src(paths.json)
+        .pipe(jsonlint())
+        .pipe(jsonlint.reporter());
+});
+
+gulp.task('lint', ['jslint', 'jsonlint']);
+
 gulp.task('default', ['swagger', 'lint', 'sass']);
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
+gulp.task('sass', function() {
+  return gulp.src('./scss/ionic.app.scss')
     .pipe(sass())
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
+    .pipe(gulp.dest('./www/css/'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+    return gulp.watch(paths.sass, ['sass']);
 });
 
 gulp.task('install', ['git-check'], function() {
