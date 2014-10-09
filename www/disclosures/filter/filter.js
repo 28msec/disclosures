@@ -28,6 +28,8 @@ angular
     	return list.indexOf(item) > -1;
     };
     
+    $scope.$watch('filter', $scope.filterChange, true);
+    
     $scope.toggleSelection = function (list,item) {
         var idx = list.indexOf(item);
        

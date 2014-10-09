@@ -33,7 +33,8 @@ angular.module('disclosures')
                     return DisclosuresAPI.Queries.listReportElements(params).then(function(data){
                         return {
                             report: report,
-                            reportElements: data.ReportElements
+                            reportElements: data.ReportElements,
+                            names : names
                         };
                     });
                 });

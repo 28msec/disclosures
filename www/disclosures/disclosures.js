@@ -20,6 +20,29 @@ angular.module('disclosures')
     $scope.footnotes = [];
     $scope.disclosures = [];
 
+    $scope.report = report;
+    $scope.names = disclosures.names
+    ;
+    $scope.updateAvailableConcepts = function(reportElements) {
+    	$scope.used = {};
+        _.forEach(reportElements, function(elem) { $scope.used[elem] = true; });	
+    };
+    
+    $scope.filterChange = function(filter) {
+      $scope.updateAvailableConcepts([]);
+      var params = {
+         onlyNames: true,
+         contentType: 'application/x-www-form-urlencoded',
+          report: 'Disclosures'
+      };
+      DisclosuresAPI.addToken(params).addFilter(params);
+      params.name = $scope.names.join('&');
+      DisclosuresAPI.Queries.listReportElements(params).then(function(data){
+           $scope.updateAvailableConcepts(data.ReportElements)              
+      });	
+    };
+    
+    
     report.Networks.forEach(function(network) {
         if (network.LinkName === 'link:presentationLink')
         {
@@ -34,23 +57,25 @@ angular.module('disclosures')
                     container = $scope.disclosures;
                 }
                 _.forEach(hierarchy.To, function(concept){
-                    if(reportElements.indexOf(concept.Name) !== -1) {
-                        $scope.used[concept.Name] = true;
-                    }
+                    //if(reportElements.indexOf(concept.Name) !== -1) {
+                    //    $scope.used[concept.Name] = true;
+                    //}
                     container.push(concept);
                 });
             });
         }
     });
-
+    
+    $scope.updateAvailableConcepts(reportElements);
+    
     $scope.toggleLeft = function() {
         $ionicSideMenuDelegate.toggleLeft();
     };
     
     
     $scope.select = function(params) {
-       if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
-       else $state.go('disclosures.concept', params, null);
+       /*if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
+       else */ $state.go('disclosures.concept', params, null);
     };
     
     $scope.up = function() {       
