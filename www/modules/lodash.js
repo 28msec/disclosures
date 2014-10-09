@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('underscore', [])
+angular.module('lodash', [])
 .factory('_', function() {
     return window._;
 });

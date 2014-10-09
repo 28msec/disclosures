@@ -35,8 +35,6 @@
         "jasmine"
     ],
     "globals": {
-        "angular": false,
-        "cordova": false,
-        "StatusBar": false
+        "angular": false
     }
 }
