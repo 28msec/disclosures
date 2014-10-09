@@ -9,9 +9,6 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var fs = require('fs');
 var map = require('map-stream');
-var failOnError = map(function() {
-    process.exit(1);
-});
 
 var paths = {
   json: ['package.json'],
@@ -34,7 +31,12 @@ gulp.task('jsonlint', function(){
     return gulp.src(paths.json)
         .pipe(jsonlint())
         .pipe(jsonlint.reporter())
-        .pipe(failOnError);
+        .pipe(map(function(file, cb) {
+            if (!file.jshint.success) {
+                process.exit(1);
+            }
+            cb(null, file);
+        }));
 });
 
 gulp.task('lint', ['jslint', 'jsonlint']);
@@ -90,16 +92,23 @@ gulp.task('swagger', function(done){
             uri: api.swagger,
             method: 'GET'
         }, function(error, response, body){
-            var swagger = JSON.parse(body);
-            var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
-            console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
-            fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
-            deferred.resolve();
+            if(error || response.statusCode !== 200) {
+                deferred.reject('Error while fetching ' + api.swagger + ': ' + (error || body));
+            } else {
+                var swagger = JSON.parse(body);
+                var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
+                console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
+                fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
+                deferred.resolve();
+            }
         });
         promises.push(deferred.promise);
     });
     Q.all(promises).then(function(){
         done();
+    }).catch(function(error){
+        console.error(error);
+        process.exit(1);
     });
 });
 
