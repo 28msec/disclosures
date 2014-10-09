@@ -10,5 +10,7 @@ angular
 	    $scope.factEntity = fact.FactTable[0].EntityRegistrantName;
 	    $scope.factFiscalYear = fact.FactTable[0].Aspects['sec:FiscalYear'];
 	    $scope.factFiscalPeriod = fact.FactTable[0].Aspects['sec:FiscalPeriod'];
-    } else $scope.up();
+    } else {
+    	$scope.up();
+    }
 });

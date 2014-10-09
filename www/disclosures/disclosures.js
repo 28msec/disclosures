@@ -35,10 +35,10 @@ angular.module('disclosures')
          contentType: 'application/x-www-form-urlencoded',
           report: 'Disclosures'
       };
-      DisclosuresAPI.addToken(params).addFilter(params);
+      DisclosuresAPI.addToken(params).addFilter(filter);
       params.name = $scope.names.join('&');
       DisclosuresAPI.Queries.listReportElements(params).then(function(data){
-           $scope.updateAvailableConcepts(data.ReportElements)              
+           $scope.updateAvailableConcepts(data.ReportElements);              
       });	
     };
     
@@ -56,10 +56,7 @@ angular.module('disclosures')
                 } else if(name === 'disc:DisclosuresHierarchy') {
                     container = $scope.disclosures;
                 }
-                _.forEach(hierarchy.To, function(concept){
-                    //if(reportElements.indexOf(concept.Name) !== -1) {
-                    //    $scope.used[concept.Name] = true;
-                    //}
+                _.forEach(hierarchy.To, function(concept){                   
                     container.push(concept);
                 });
             });
@@ -75,11 +72,17 @@ angular.module('disclosures')
     
     $scope.select = function(params) {
        /*if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
-       else */ $state.go('disclosures.concept', params, null);
+       else */ 
+       $state.go('disclosures.concept', params, null);
     };
     
     $scope.up = function() {       
-       if (DisclosuresAPI.aid) $state.go('disclosures.concept', { concept : $state.params.concept });
-       else $state.go('disclosures.filter');
+       if (DisclosuresAPI.aid) {
+    	   $state.go('disclosures.concept', { concept : $state.params.concept });
+       }
+       else 
+       {
+    	  $state.go('disclosures.filter');
+       }    	   
     };
 });
