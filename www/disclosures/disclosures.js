@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('disclosures')
-.controller('DisclosuresCtrl', function($scope, $stateParams, $state, $ionicSideMenuDelegate, disclosures, DisclosuresAPI) {
+.controller('DisclosuresCtrl', function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, disclosures, DisclosuresAPI) {
     var report = disclosures.report;
     var reportElements = disclosures.reportElements;
 
@@ -76,11 +76,9 @@ angular.module('disclosures')
     
     $scope.up = function() {       
        if (DisclosuresAPI.aid) {
-    	   $state.go('disclosures.concept', { concept : $state.params.concept });
+           $state.go('disclosures.concept', { concept : $state.params.concept });
+       } else {
+           $state.go('disclosures.filter');
        }
-       else 
-       {
-    	  $state.go('disclosures.filter');
-       }    	   
     };
 });
