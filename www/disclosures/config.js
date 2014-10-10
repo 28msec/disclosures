@@ -16,25 +16,11 @@ angular.module('disclosures')
                         contentType: 'application/x-www-form-urlencoded',
                         report: 'Disclosures'
                     };
-                    var names = [];
-                    report.Networks.forEach(function(network) {
-                        if (network.LinkName === 'link:presentationLink')
-                        {
-                            var node = network.Trees['disc:DisclosuresLineItems'].To;
-                            _.forEach(node, function(hierarchy){
-                                _.forEach(hierarchy.To, function(concept){
-                                    names.push('name=' + encodeURIComponent(concept.Name));
-                                });
-                            });
-                        }
-                    });
                     DisclosuresAPI.addToken(params).addFilter(params);
-                    params.name = names.join('&');
                     return DisclosuresAPI.Queries.listReportElements(params).then(function(data){
                         return {
                             report: report,
-                            reportElements: data.ReportElements,
-                            names : names
+                            reportElements: data.ReportElements
                         };
                     });
                 });

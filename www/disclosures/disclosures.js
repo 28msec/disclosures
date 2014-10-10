@@ -21,8 +21,7 @@ angular.module('disclosures')
     $scope.disclosures = [];
 
     $scope.report = report;
-    $scope.names = disclosures.names
-    ;
+
     $scope.updateAvailableConcepts = function(reportElements) {
     	$scope.used = {};
         _.forEach(reportElements, function(elem) { $scope.used[elem] = true; });	
@@ -36,7 +35,6 @@ angular.module('disclosures')
           report: 'Disclosures'
       };
       DisclosuresAPI.addToken(params).addFilter(params);
-      params.name = $scope.names.join('&');
       DisclosuresAPI.Queries.listReportElements(params).then(function(data){
            $scope.updateAvailableConcepts(data.ReportElements);              
       });	
