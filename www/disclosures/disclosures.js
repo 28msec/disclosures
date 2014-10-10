@@ -28,14 +28,14 @@ angular.module('disclosures')
         _.forEach(reportElements, function(elem) { $scope.used[elem] = true; });	
     };
     
-    $scope.filterChange = function(filter) {
+    $scope.filterChange = function() {
       $scope.updateAvailableConcepts([]);
       var params = {
          onlyNames: true,
          contentType: 'application/x-www-form-urlencoded',
           report: 'Disclosures'
       };
-      DisclosuresAPI.addToken(params).addFilter(filter);
+      DisclosuresAPI.addToken(params).addFilter(params);
       params.name = $scope.names.join('&');
       DisclosuresAPI.Queries.listReportElements(params).then(function(data){
            $scope.updateAvailableConcepts(data.ReportElements);              
