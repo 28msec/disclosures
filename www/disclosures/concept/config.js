@@ -11,7 +11,7 @@ angular
         resolve: {
             reportElements: ['$stateParams', 'DisclosuresAPI', function($stateParams, DisclosuresAPI) {
                 var params = {
-                	report : "Disclosures",
+                	report : 'Disclosures',
                     name: 'name=' + encodeURIComponent($stateParams.concept)
                 };
                 DisclosuresAPI.addToken(params).addFilter(params);
