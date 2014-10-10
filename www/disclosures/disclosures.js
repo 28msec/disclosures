@@ -22,6 +22,10 @@ angular.module('disclosures')
 
     $scope.report = report;
 
+    $scope.notUsed = function(concept) {
+       return $scope.used[concept.Name] !== true;
+    };
+
     $scope.updateAvailableConcepts = function(reportElements) {
     	$scope.used = {};
         _.forEach(reportElements, function(elem) { $scope.used[elem] = true; });	
