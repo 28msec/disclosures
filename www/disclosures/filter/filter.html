@@ -6,7 +6,7 @@
             </div>               
             <div class="item item-text-wrap">
                <ion-radio name="tags" ng-repeat="tag in filterParameters.tags" ng-value="tag" ng-model="filter.tag">{{ tag }}</ion-radio>
-               <ion-radio name="tags" ng-value="undefined" ng-model="filter.tag">All</ion-radio>
+               <ion-radio name="tags" value="ALL" ng-model="filter.tag">All</ion-radio>
             </div>
 
             <div class="item item-divider uppercase">
