@@ -73,14 +73,24 @@ angular.module('disclosures')
     
     
     $scope.select = function(params) {
-       /*if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
-       else */ 
+       params.year = DisclosuresAPI.filter.fiscalYear;
+       params.period = DisclosuresAPI.filter.fiscalPeriod;
+       params.tag = DisclosuresAPI.filter.tag;
+      /*if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
+       else */
        $state.go('disclosures.concept', params, null);
     };
     
     $scope.up = function() {       
        if (DisclosuresAPI.aid) {
-           $state.go('disclosures.concept', { concept : $state.params.concept });
+           $state.go('disclosures.concept',
+               {
+                   concept : $state.params.concept,
+                   year : DisclosuresAPI.filter.fiscalYear,
+                   period : DisclosuresAPI.filter.fiscalPeriod,
+                   tag : DisclosuresAPI.filter.tag
+               }
+           );
        } else {
            $state.go('disclosures.filter');
        }

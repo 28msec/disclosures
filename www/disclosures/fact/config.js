@@ -4,7 +4,7 @@ angular.module('disclosures')
     .config(function ($stateProvider) {
         $stateProvider
             .state('disclosures.fact', {
-                url: '/:concept/:aid',
+                url: '/:year/:period/:tag/:concept/:aid',
                 templateUrl: 'disclosures/fact/fact.html',
                 controller: 'FactCtrl',
                 resolve: {
@@ -14,6 +14,10 @@ angular.module('disclosures')
                             concept: $stateParams.concept,
                             aid: $stateParams.aid
                         };
+                        DisclosuresAPI.filter.fiscalPeriod = $stateParams.period;
+                        DisclosuresAPI.filter.fiscalYear = Number.isNaN($stateParams.year) ? $stateParams.year : Number($stateParams.year);
+                        DisclosuresAPI.filter.tag = $stateParams.tag ? $stateParams.tag : null;
+
                         DisclosuresAPI.addToken(params);
                         DisclosuresAPI.setAid($stateParams.aid);
                         return DisclosuresAPI.Queries.listFacts(params).then(function(data){

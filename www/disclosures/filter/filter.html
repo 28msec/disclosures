@@ -5,15 +5,16 @@
                 Entity Group
             </div>               
             <div class="item item-text-wrap">
-               <ion-radio name="tags" ng-repeat="tag in filterParameters.tags" ng-value="tag" ng-model="filter.tag[0]">{{ tag }}</ion-radio>
+               <ion-radio name="tags" ng-repeat="tag in filterParameters.tags" ng-value="tag" ng-model="filter.tag">{{ tag }}</ion-radio>
+               <ion-radio name="tags" ng-value="undefined" ng-model="filter.tag">All</ion-radio>
             </div>
 
             <div class="item item-divider uppercase">
                 Fiscal Year
             </div>
             <div class="item item-text-wrap">
-                <ion-radio ng-show="allYears" name="allyears" ng-repeat="year in filterParameters.years" ng-value="year" ng-model="filter.fiscalYear[0]">{{ year }}</ion-radio>
-                <ion-radio ng-hide="allYears" name="years" ng-repeat="year in recentYears" ng-value="year" ng-model="filter.fiscalYear[0]">{{ year }}</ion-radio>
+                <ion-radio ng-show="allYears" name="allyears" ng-repeat="year in filterParameters.years" ng-value="year" ng-model="filter.fiscalYear">{{ year }}</ion-radio>
+                <ion-radio ng-hide="allYears" name="years" ng-repeat="year in recentYears" ng-value="year" ng-model="filter.fiscalYear">{{ year }}</ion-radio>
                 <ion-radio ng-hide="allYears" name="years" ng-click="showAllYears()">...</ion-radio>
             </div>
 
@@ -21,7 +22,7 @@
                 Fiscal Period
             </div>               
             <div class="item item-text-wrap">
-               <ion-radio name="periods" ng-repeat="period in filterParameters.periods" ng-value="period" ng-model="filter.fiscalPeriod[0]">{{ period }}</ion-radio>
+               <ion-radio name="periods" ng-repeat="period in filterParameters.periods" ng-value="period" ng-model="filter.fiscalPeriod">{{ period }}</ion-radio>
             </div>
             
         </div>

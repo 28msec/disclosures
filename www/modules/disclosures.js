@@ -16,7 +16,7 @@ angular
             cik: [],
             fiscalPeriod: ['FY'],
             fiscalYear: [2014],
-            tag: ['DOW30']
+            tag: 'DOW30'
         },
         
         aid : null,
@@ -47,7 +47,7 @@ angular
 
             var that = this;
             Object.keys(this.filter).forEach(function(param){
-                params[param] = that.filter[param];
+               params[param] = that.filter[param];
             });
             return this;
         }

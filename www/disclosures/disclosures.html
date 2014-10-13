@@ -41,7 +41,7 @@
                 </div>
                 <a class="item"
                    ng-repeat="concept in footnotes | filter:search | orderBy:[notUsed, 'Label']"
-                   ui-sref="disclosures.concept({ category: 'Footnotes', concept: concept.Name })"
+                   ng-click="select({ category: 'Footnotes', concept: concept.Name });"
                    ng-class="{ disabled: used[concept.Name] !== true }">
                     {{concept.Label}}
                 </a>
@@ -51,7 +51,7 @@
                 </div>
                 <a class="item"
                    ng-repeat="concept in disclosures | filter:search | orderBy:[notUsed, 'Label']"
-                   ui-sref="disclosures.concept({ category: 'Disc', concept: concept.Name })"
+                   ng-click="select({ category: 'Disc', concept: concept.Name });"
                    ng-class="{ disabled: used[concept.Name] !== true }">
                     {{concept.Label}}
                 </a>
