@@ -6,3 +6,6 @@ before_script:
 - bower install
 script:
 - gulp
+env:
+  global:
+    secure: NFUDjYBeX4CRz0dTZMgUHEYmBJk7z1gQPc43ebuNDgZKewy5z0GdJm4OMpDS5hZM79PDe9QzsMRw7Xva+RLoQ8J5g0+sA731ng8pv+taUZ5LqHkRiCQ86gImVEn9VvxBVECswtPIeipNK0eN5E66MiVongWzYzJFZ8+nHU1RcmQ=

@@ -9,12 +9,25 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var fs = require('fs');
 var map = require('map-stream');
+var shell = require('gulp-shell');
 
 var paths = {
-  json: ['package.json'],
+  json: ['*.json'],
   js: ['gulpfile.js', 'www/**/*.js', '!www/lib/**/*.js'],
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  config: 'config.json'
 };
+
+gulp.task('env-check', function(done){
+    if(process.env.TRAVIS_SECRET_KEY === undefined) {
+        console.error('environment variable TRAVIS_SECRET_KEY is not set.');
+        process.exit(1);
+    }
+    done();
+});
+
+gulp.task('encrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in config.json -out config.json.enc'));
+gulp.task('decrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in config.json.enc -out config.json -d'));
 
 gulp.task('jslint', function(){
     var jshint = require('gulp-jshint');
@@ -41,7 +54,7 @@ gulp.task('jsonlint', function(){
 
 gulp.task('lint', ['jslint', 'jsonlint']);
 
-gulp.task('default', ['swagger', 'lint', 'sass']);
+gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
 
 gulp.task('sass', function() {
   return gulp.src('./scss/ionic.app.scss')
