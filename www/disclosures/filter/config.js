@@ -4,7 +4,7 @@ angular
 .module('disclosures')
 .config(function ($stateProvider) {
     $stateProvider
-        .state('filter', {
+        .state('disclosures.filter', {
             url: '/filter',
             templateUrl: 'disclosures/filter/filter.html',
             controller: 'FilterCtrl',

@@ -14,8 +14,8 @@ angular
         filter:
         {
             cik: [],
-            fiscalPeriod: ['FY'],
-            fiscalYear: [2014],
+            fiscalPeriod: 'FY',
+            fiscalYear: 2014,
             tag: 'DOW30'
         },
         

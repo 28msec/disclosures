@@ -4,7 +4,7 @@ angular
     .module('disclosures')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('disclosure', {
+            .state('disclosures.disclosure', {
                 url: '/:fiscalYear/:fiscalPeriod/:tag',
                 templateUrl: 'disclosures/disclosure/disclosure.html',
                 controller: 'DisclosureCtrl',

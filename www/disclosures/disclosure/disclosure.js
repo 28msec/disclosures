@@ -4,14 +4,13 @@ angular.module('disclosures')
     .controller('DisclosureCtrl', function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, disclosures, DisclosuresAPI) {
         var report = disclosures.report;
         var reportElements = disclosures.reportElements;
-
-
-        $scope.leftButtons = [{
-            type: 'button-icon button-clear ion-navicon',
-            tap: function() {
-                $ionicSideMenuDelegate.toggleLeft($scope.$$childHead);
-            }
-        }];
+        $scope.nav.fiscalYear = $stateParams.fiscalYear;
+        $scope.nav.fiscalPeriod = $stateParams.fiscalPeriod;
+        $scope.nav.tag = $stateParams.tag;
+        $scope.nav.aid = undefined;
+        $scope.nav.company = undefined;
+        $scope.nav.concept = 'Disclosure';
+        $scope.nav.page = 'concept';
 
         $scope.category = $stateParams.category;
 
@@ -67,32 +66,13 @@ angular.module('disclosures')
 
         $scope.updateAvailableConcepts(reportElements);
 
-        $scope.toggleLeft = function() {
-            $ionicSideMenuDelegate.toggleLeft();
-        };
-
-
         $scope.select = function(params) {
             params.fiscalYear = DisclosuresAPI.filter.fiscalYear;
             params.fiscalPeriod = DisclosuresAPI.filter.fiscalPeriod;
             params.tag = DisclosuresAPI.filter.tag;
             /*if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
              else */
-            $state.go('concept', params, null);
+            $state.go('disclosures.concept', params, null);
         };
 
-        $scope.up = function() {
-            if (DisclosuresAPI.aid) {
-                $state.go('disclosures.concept',
-                    {
-                        concept : $state.params.concept,
-                        year : DisclosuresAPI.filter.fiscalYear,
-                        period : DisclosuresAPI.filter.fiscalPeriod,
-                        tag : DisclosuresAPI.filter.tag
-                    }
-                );
-            } else {
-                $state.go('disclosures.filter');
-            }
-        };
     });

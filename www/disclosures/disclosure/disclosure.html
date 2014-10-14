@@ -2,10 +2,9 @@
 <ion-view title="Disclosures">
 
     <ion-nav-bar class="bar-positive">
-        <button ui-sref="filter()" class="button button-icon icon ion-chevron-left"></button>
+        <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
+        <button ui-sref="disclosures.filter()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-bar>
-    <ion-nav-view animation="slide-left-right">
-    </ion-nav-view>
 
         <ion-content>
 
@@ -54,4 +53,6 @@
                 </a>
             </div>
         </ion-content>
+
  </ion-view>
+</ion-side-menu-content>
