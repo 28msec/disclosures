@@ -43,8 +43,11 @@ angular
             this.aid = aid;
         },
 
-        addFilter: function(params){
+        addFilter: function(params, newfilter){
 
+            if (newfilter) {
+                this.filter = newfilter;
+            }
             var that = this;
             Object.keys(this.filter).forEach(function(param){
                params[param] = that.filter[param];

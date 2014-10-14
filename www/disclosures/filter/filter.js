@@ -14,8 +14,5 @@ angular
         $scope.allYears = true;
     };
 
-    $scope.$watch('filter', $scope.filterChange, true);
-
-   
 })
 ;

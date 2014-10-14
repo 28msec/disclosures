@@ -1,6 +1,14 @@
 <ion-view title="{{factEntity}}">
-    <ion-content class="padding">
+
+    <ion-nav-bar class="bar-positive">
+        <button ui-sref="concept({ fiscalYear : fiscalYear, fiscalPeriod : fiscalPeriod, tag : tag, concept : concept})" class="button button-icon icon ion-chevron-left"></button>
+    </ion-nav-bar>
+
+    <ion-content>
+        <div class="padding">
         <h2 ng-show="factFiscalYear">{{factEntity}} <small>({{factFiscalYear}}/{{factFiscalPeriod}})</small></h2>
+        <div ng-show="missing">No fact value reported.</div>
         <div ng-bind-html="factValue"></div>
+        </div>
     </ion-content>
 </ion-view>
