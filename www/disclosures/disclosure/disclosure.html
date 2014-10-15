@@ -6,9 +6,9 @@
         <button ui-sref="disclosures.filter()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-bar>
 
-        <ion-content>
 
-            <ion-header-bar class="bar-light bar-header">
+
+            <ion-header-bar class="bar-light bar-header bar-subheader">
                 <input type="search"
                        placeholder="Filter..."
                        ng-model="search"
@@ -18,41 +18,50 @@
                 <!-- TODO: Add close button http://codepen.io/ionic/pen/mFygh -->
             </ion-header-bar>
 
-            <div class="list">
-                <!-- Policies -->
-                <div class="item item-divider">
-                    Policies
-                </div>
-                <a class="item"
-                   ng-repeat="concept in policies | filter:search | orderBy:[notUsed, 'Label']"
-                   ng-click="select({ category: 'Policies', concept: concept.Name });"
+            <ion-tabs class="tabs-positive">
 
-                   ng-class="{ disabled: used[concept.Name] !== true }">
-                    {{concept.Label}}
-                </a>
+                <ion-tab title="Policies" >
+                    <ion-content>
+                        <div class="list">
+                            <a class="item"
+                               ng-repeat="concept in policies | filter:search | orderBy:[notUsed, 'Label']"
+                               ng-click="select({ category: 'Policies', concept: concept.Name });"
 
-                <!-- Footnotes -->
-                <div class="item item-divider">
-                    Footnotes
-                </div>
-                <a class="item"
-                   ng-repeat="concept in footnotes | filter:search | orderBy:[notUsed, 'Label']"
-                   ng-click="select({ category: 'Footnotes', concept: concept.Name });"
-                   ng-class="{ disabled: used[concept.Name] !== true }">
-                    {{concept.Label}}
-                </a>
+                               ng-class="{ disabled: used[concept.Name] !== true }">
+                                {{concept.Label}}
+                            </a>
+                         </div>
+                    </ion-content>
+                </ion-tab>
 
-                <div class="item item-divider">
-                    Disclosures
-                </div>
-                <a class="item"
-                   ng-repeat="concept in disclosures | filter:search | orderBy:[notUsed, 'Label']"
-                   ng-click="select({ category: 'Disc', concept: concept.Name });"
-                   ng-class="{ disabled: used[concept.Name] !== true }">
-                    {{concept.Label}}
-                </a>
-            </div>
-        </ion-content>
+                <ion-tab title="Footnotes" >
+                    <ion-content>
+                        <div class="list">
+                            <a class="item"
+                               ng-repeat="concept in footnotes | filter:search | orderBy:[notUsed, 'Label']"
+                               ng-click="select({ category: 'Footnotes', concept: concept.Name });"
+                               ng-class="{ disabled: used[concept.Name] !== true }">
+                                {{concept.Label}}
+                            </a>
+                        </div>
+                    </ion-content>
+                </ion-tab>
+
+                <ion-tab title="Disclosures" >
+                    <ion-content>
+                        <div class="list">
+                            <a class="item"
+                               ng-repeat="concept in disclosures | filter:search | orderBy:[notUsed, 'Label']"
+                               ng-click="select({ category: 'Disc', concept: concept.Name });"
+                               ng-class="{ disabled: used[concept.Name] !== true }">
+                                {{concept.Label}}
+                            </a>
+                        </div>
+                    </ion-content>
+                </ion-tab>
+
+            </ion-tabs>
+
 
  </ion-view>
 </ion-side-menu-content>
