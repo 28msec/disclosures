@@ -9,7 +9,7 @@ angular
     $scope.nav.fiscalYear = $stateParams.fiscalYear;
     $scope.nav.fiscalPeriod = $stateParams.fiscalPeriod;
     $scope.nav.tag = $stateParams.tag;
-    $scope.nav.page = "fact";
+    $scope.nav.page = 'fact';
     if (fact.FactTable && fact.FactTable.length > 0) {
 	    $scope.factValue = $sce.trustAsHtml(fact.FactTable[0].Value);
 	    $scope.factEntity = fact.FactTable[0].EntityRegistrantName;

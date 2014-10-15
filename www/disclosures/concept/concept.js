@@ -9,7 +9,7 @@ angular
     $scope.nav.fiscalPeriod = $stateParams.fiscalPeriod;
     $scope.nav.tag = $stateParams.tag;
     $scope.nav.aid = undefined;
-    $scope.nav.company = "Company";
-    $scope.nav.page = "company";
+    $scope.nav.company = 'Company';
+    $scope.nav.page = 'company';
 })
 ;
