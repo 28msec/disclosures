@@ -7,4 +7,4 @@ www/css/ionic.app.min.css
 www/modules/*-api.js
 platforms/ios
 *.swp
-config.json
+credentials.json

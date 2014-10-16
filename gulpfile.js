@@ -10,14 +10,9 @@ var sh = require('shelljs');
 var map = require('map-stream');
 var shell = require('gulp-shell');
 
-require('./tasks/swagger');
+var Config = require('./tasks/config');
 
-var paths = {
-  json: ['*.json'],
-  js: ['gulpfile.js', 'www/**/*.js', '!www/lib/**/*.js'],
-  sass: ['./scss/**/*.scss'],
-  config: 'config.json'
-};
+require('./tasks/swagger');
 
 gulp.task('env-check', function(done){
     if(process.env.TRAVIS_SECRET_KEY === undefined) {
@@ -27,13 +22,18 @@ gulp.task('env-check', function(done){
     done();
 });
 
-gulp.task('encrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in config.json -out config.json.enc'));
-gulp.task('decrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in config.json.enc -out config.json -d'));
+gulp.task('encrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
+gulp.task('decrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
+
+gulp.task('load-config', ['decrypt'], function(done){
+    var fs = require('fs');
+    Config.credentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));
+    done();
+});
 
 gulp.task('jslint', function(){
     var jshint = require('gulp-jshint');
-
-    return gulp.src(paths.js.concat(['!www/modules/*-api.js']))
+    return gulp.src(Config.paths.js.concat(['!www/modules/*-api.js']))
         .pipe(jshint())
         .pipe(jshint.reporter())
         .pipe(jshint.reporter('fail'));
@@ -42,7 +42,7 @@ gulp.task('jslint', function(){
 gulp.task('jsonlint', function(){
     var jsonlint = require('gulp-jsonlint');
 
-    return gulp.src(paths.json)
+    return gulp.src(Config.paths.json)
         .pipe(jsonlint())
         .pipe(jsonlint.reporter())
         .pipe(map(function(file, cb) {
@@ -69,7 +69,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('watch', function() {
-    return gulp.watch(paths.sass, ['sass']);
+    return gulp.watch(Config.paths.sass, ['sass']);
 });
 
 gulp.task('install', ['git-check'], function() {
