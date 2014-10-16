@@ -13,6 +13,7 @@ var shell = require('gulp-shell');
 var Config = require('./tasks/config');
 
 require('./tasks/swagger');
+require('./tasks/s3');
 
 gulp.task('env-check', function(done){
     if(process.env.TRAVIS_SECRET_KEY === undefined) {
@@ -56,6 +57,9 @@ gulp.task('jsonlint', function(){
 gulp.task('lint', ['jslint', 'jsonlint']);
 
 gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
+gulp.task('setup', ['load-config'], function(){
+    gulp.start('s3-setup');
+});
 
 gulp.task('sass', function() {
   return gulp.src('./scss/ionic.app.scss')
