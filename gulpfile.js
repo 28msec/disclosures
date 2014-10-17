@@ -5,10 +5,10 @@ var $ = require('gulp-load-plugins')();
 
 var bower = require('bower');
 var sh = require('shelljs');
-var map = require('map-stream');
 
 var Config = require('./tasks/config');
 
+require('./tasks/lint');
 require('./tasks/swagger');
 require('./tasks/s3');
 
@@ -27,28 +27,6 @@ gulp.task('load-config', ['decrypt'], function(done){
     var fs = require('fs');
     Config.credentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));
     done();
-});
-
-gulp.task('jslint', function(){
-    var jshint = require('gulp-jshint');
-    return gulp.src(Config.paths.js.concat(['!www/modules/*-api.js']))
-        .pipe(jshint())
-        .pipe(jshint.reporter())
-        .pipe(jshint.reporter('fail'));
-});
-
-gulp.task('jsonlint', function(){
-    var jsonlint = require('gulp-jsonlint');
-
-    return gulp.src(Config.paths.json)
-        .pipe(jsonlint())
-        .pipe(jsonlint.reporter())
-        .pipe(map(function(file, cb) {
-            if (!file.jsonlint.success) {
-                process.exit(1);
-            }
-            cb(null, file);
-        }));
 });
 
 gulp.task('setup', ['load-config'], function(){
@@ -90,7 +68,6 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-gulp.task('lint', ['jslint', 'jsonlint']);
 
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], function () {
     return gulp.src(Config.paths.dist).pipe($.size({title: 'build', gzip: true}));
