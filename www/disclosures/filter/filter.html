@@ -1,10 +1,13 @@
 
 <ion-view title="Filter">
 
-    <ion-nav-bar class="bar-positive" side="right">
-      <ion-nav-buttons side="right">
+    <ion-nav-bar class="bar-positive">
+        <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
+        <button ui-sref="disclosures.start()" class="button button-icon icon ion-chevron-left"></button>
+
+       <ion-nav-buttons side="right">
             <button ui-sref="disclosures.disclosure(filter)" class="button button-icon icon ion-chevron-right"></button>
-      </ion-nav-buttons>
+       </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content>

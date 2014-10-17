@@ -12,7 +12,9 @@ angular.module('disclosures')
                         var params = {
                             map: 'Disclosures',
                             concept: $stateParams.concept,
-                            aid: $stateParams.aid
+                            aid: $stateParams.aid,
+                            fiscalPeriod : $stateParams.fiscalPeriod,
+                            fiscalYear : Number.isNaN($stateParams.fiscalYear) ? $stateParams.fiscalYear : Number($stateParams.fiscalYear)
                         };
                         DisclosuresAPI.filter.fiscalPeriod = $stateParams.fiscalPeriod;
                         DisclosuresAPI.filter.fiscalYear = Number.isNaN($stateParams.fiscalYear) ? $stateParams.fiscalYear : Number($stateParams.fiscalYear);

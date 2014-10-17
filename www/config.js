@@ -20,6 +20,6 @@ angular.module('disclosures', ['lodash', 'ionic', 'disclosures.api'])
   });
 })
 .config(function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise('/disclosures/filter');
+    $urlRouterProvider.otherwise('/disclosures/index');
 })
 ;
