@@ -112,6 +112,7 @@ gulp.task('s3-setup', function(done) {
         deleteBucket(idempotent)
         .then(createBucket).then(function(){
             console.log('upload');
+            //publisher
             done();
         })
         .catch(function(error){

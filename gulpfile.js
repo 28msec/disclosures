@@ -1,14 +1,11 @@
 'use strict';
 
 var gulp = require('gulp');
-var gutil = require('gulp-util');
+var $ = require('gulp-load-plugins')();
+
 var bower = require('bower');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
 var sh = require('shelljs');
 var map = require('map-stream');
-var shell = require('gulp-shell');
 
 var Config = require('./tasks/config');
 
@@ -23,8 +20,8 @@ gulp.task('env-check', function(done){
     done();
 });
 
-gulp.task('encrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
-gulp.task('decrypt', ['env-check'], shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
+gulp.task('encrypt', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
+gulp.task('decrypt', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
 
 gulp.task('load-config', ['decrypt'], function(done){
     var fs = require('fs');
@@ -54,21 +51,18 @@ gulp.task('jsonlint', function(){
         }));
 });
 
-gulp.task('lint', ['jslint', 'jsonlint']);
-
-gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
 gulp.task('setup', ['load-config'], function(){
     gulp.start('s3-setup');
 });
 
 gulp.task('sass', function() {
   return gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
+    .pipe($.sass())
     .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
+    .pipe($.minifyCss({
       keepSpecialComments: 0
     }))
-    .pipe(rename({ extname: '.min.css' }))
+    .pipe($.rename({ extname: '.min.css' }))
     .pipe(gulp.dest('./www/css/'));
 });
 
@@ -79,19 +73,28 @@ gulp.task('watch', function() {
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+          $.gutil.log('bower', $.gutil.colors.cyan(data.id), data.message);
     });
 });
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
     console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
+      '  ' + $.gutil.colors.red('Git is not installed.'),
       '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+      '\n  Download git here:', $.gutil.colors.cyan('http://git-scm.com/downloads') + '.',
+      '\n  Once git is installed, run \'' + $.gutil.colors.cyan('gulp install') + '\' again.'
     );
     process.exit(1);
   }
   done();
 });
+
+gulp.task('lint', ['jslint', 'jsonlint']);
+
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], function () {
+    return gulp.src(Config.paths.dist).pipe($.size({title: 'build', gzip: true}));
+});
+
+gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
+
