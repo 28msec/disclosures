@@ -9,6 +9,7 @@ var sh = require('shelljs');
 var Config = require('./tasks/config');
 
 require('./tasks/lint');
+require('./tasks/html');
 require('./tasks/swagger');
 require('./tasks/s3');
 
@@ -31,17 +32,6 @@ gulp.task('load-config', ['decrypt'], function(done){
 
 gulp.task('setup', ['load-config'], function(){
     gulp.start('s3-setup');
-});
-
-gulp.task('sass', function() {
-  return gulp.src('./scss/ionic.app.scss')
-    .pipe($.sass())
-    .pipe(gulp.dest('./www/css/'))
-    .pipe($.minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe($.rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'));
 });
 
 gulp.task('watch', function() {
