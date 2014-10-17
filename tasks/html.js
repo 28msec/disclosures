@@ -16,11 +16,11 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('./www/css/'));
 });
 
-gulp.task('html', ['sass'], function(){
+gulp.task('html', ['sass'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
-    return gulp.src('www/*.html')
+    return gulp.src('app/*.html')
         .pipe($.useref.assets({searchPath: '{.tmp,www}'}))
         .pipe(jsFilter)
         .pipe($.uglify())
@@ -28,7 +28,7 @@ gulp.task('html', ['sass'], function(){
         .pipe(cssFilter)
         .pipe($.csso())
         .pipe(cssFilter.restore())
-        .pipe($.useref.restore())
+        .pipe($.useref.assets().restore())
         .pipe($.useref())
         .pipe(gulp.dest('dist'))
         .pipe($.size());
