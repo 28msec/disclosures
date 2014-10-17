@@ -19,16 +19,16 @@ gulp.task('sass', function() {
 gulp.task('html', ['sass'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
-
-    return gulp.src('app/*.html')
-        .pipe($.useref.assets({searchPath: '{.tmp,www}'}))
+    var assets = $.useref.assets({searchPath: '{.tmp,www}'});
+    return gulp.src('www/*.html')
+        .pipe(assets)
         .pipe(jsFilter)
         .pipe($.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
         .pipe($.csso())
         .pipe(cssFilter.restore())
-        .pipe($.useref.assets().restore())
+        .pipe(assets.restore())
         .pipe($.useref())
         .pipe(gulp.dest('dist'))
         .pipe($.size());
