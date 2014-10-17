@@ -10,6 +10,7 @@ var Config = require('./tasks/config');
 
 require('./tasks/lint');
 require('./tasks/html');
+require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
 
