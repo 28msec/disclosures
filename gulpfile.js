@@ -64,5 +64,14 @@ gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], function () {
     return gulp.src(Config.paths.dist).pipe($.size({title: 'build', gzip: true}));
 });
 
+gulp.task('extras', function () {
+    return gulp.src(['app/*.*', '!app/*.html'], { dot: true })
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('clean', function () {
+    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+});
+
 gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
 
