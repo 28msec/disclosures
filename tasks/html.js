@@ -15,3 +15,21 @@ gulp.task('sass', function() {
         .pipe($.rename({ extname: '.min.css' }))
         .pipe(gulp.dest('./www/css/'));
 });
+
+gulp.task('html', ['sass'], function(){
+    var jsFilter = $.filter('**/*.js');
+    var cssFilter = $.filter('**/*.css');
+
+    return gulp.src('www/*.html')
+        .pipe($.useref.assets({searchPath: '{.tmp,www}'}))
+        .pipe(jsFilter)
+        .pipe($.uglify())
+        .pipe(jsFilter.restore())
+        .pipe(cssFilter)
+        .pipe($.csso())
+        .pipe(cssFilter.restore())
+        .pipe($.useref.restore())
+        .pipe($.useref())
+        .pipe(gulp.dest('dist'))
+        .pipe($.size());
+});

@@ -58,7 +58,6 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], function () {
     return gulp.src(Config.paths.dist).pipe($.size({title: 'build', gzip: true}));
 });
