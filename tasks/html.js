@@ -23,7 +23,7 @@ gulp.task('html', ['sass'], function () {
     return gulp.src('www/*.html')
         .pipe(assets)
         .pipe(jsFilter)
-        .pipe($.uglify())
+        //.pipe($.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
         .pipe($.csso())

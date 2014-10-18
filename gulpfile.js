@@ -63,12 +63,25 @@ gulp.task('git-check', function(done) {
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras']);
 
 gulp.task('extras', function () {
-    return gulp.src(['app/*.*', '!app/*.html'], { dot: true })
+    return gulp.src(['www/**/*'], { dot: true })
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', function () {
     return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+});
+
+gulp.task('serve', ['build'], function () {
+    var connect = require('connect');
+    var serveStatic = require('serve-static');
+
+    var app = connect().use(serveStatic('dist'));
+
+    require('http').createServer(app)
+        .listen(9000)
+        .on('listening', function () {
+            console.log('Started connect web server on http://localhost:9000');
+        });
 });
 
 gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
