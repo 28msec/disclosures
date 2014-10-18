@@ -5,8 +5,11 @@ var Q = require('q')
 var AWS = require('aws-sdk');
 var gulp = require('gulp');
 var awspublish = require('gulp-awspublish');
+var parallelize = require("concurrent-transform");
 
 var Config = require('./config');
+
+//var headers = {};
 
 var s3, key, secret, region, bucketName, config, publisher;
 
@@ -15,6 +18,7 @@ var init = function() {
     secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
     region = Config.credentials.s3.region;
     bucketName = Config.isOnTravisAndMaster ? 'secdisclosures' : 'secdisclosures-' + Math.floor((Math.random() * 1000000) + 1);
+    console.log('Bucket Name' + bucketName);
     config = {
         accessKeyId: key,
         secretAccessKey: secret,
@@ -109,11 +113,14 @@ gulp.task('s3-setup', function(done) {
     var idempotent = true;
     init();
     if(!Config.isOnProduction) {
-        deleteBucket(idempotent)
+        return deleteBucket(idempotent)
         .then(createBucket).then(function(){
             console.log('upload');
-            //publisher
-            done();
+            return gulp.src('dist/**/*')
+                    .pipe(awspublish.gzip())
+                    .pipe(parallelize(publisher.publish(), 10))
+                    .pipe(publisher.cache())
+                    .pipe(awspublish.reporter());
         })
         .catch(function(error){
             console.error(error);
@@ -129,35 +136,3 @@ gulp.task('s3-teardown', function(done) {
     }
     done();
 });
-
-/*
- {
- "s3": {
- "dev": {
- "key": "AKIAJYKIEJORBXFKMA2Q",
- "secret": "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"
- },
- "prod": {
- "key": "AKIAJQDKG6VXEV2AI3ZA",
- "secret": "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"
- },
- "region": "us-east-1",
- "website": {
- "ErrorDocument": {
- "Key": "index.html"
- },
- "IndexDocument": {
- "Suffix": "index.html"
- },
- "RoutingRules": [{
- "Redirect": {
- "ReplaceKeyPrefixWith": "#"
- },
- "Condition": {
- "HttpErrorCodeReturnedEquals": "403"
- }
- }]
- }
- }
- }
- */

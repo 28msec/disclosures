@@ -32,10 +32,6 @@ gulp.task('load-config', ['decrypt'], function(done){
     done();
 });
 
-gulp.task('setup', ['load-config'], function(){
-    gulp.start('s3-setup');
-});
-
 gulp.task('watch', function() {
     return gulp.watch(Config.paths.sass, ['sass']);
 });
@@ -86,3 +82,7 @@ gulp.task('serve', ['build'], function () {
 
 gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
 
+
+gulp.task('setup', ['load-config', 'build'], function(){
+    gulp.start('s3-setup');
+});

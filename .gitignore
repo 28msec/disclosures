@@ -11,3 +11,4 @@ www/modules/*-api.js
 platforms/ios
 *.swp
 credentials.json
+.awspublish-*
