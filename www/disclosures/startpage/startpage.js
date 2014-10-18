@@ -2,7 +2,7 @@
 
 angular
     .module('disclosures')
-    .controller('StartpageCtrl', function($scope){
+    .controller('StartpageCtrl', function(){
 
     })
 ;
