@@ -59,7 +59,7 @@ gulp.task('git-check', function(done) {
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras']);
 
 gulp.task('extras', function () {
-    return gulp.src(['www/**/*'], { dot: true })
+    return gulp.src(['www/**/*.html'], { dot: true })
         .pipe(gulp.dest('dist'));
 });
 
