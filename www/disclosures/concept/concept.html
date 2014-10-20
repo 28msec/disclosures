@@ -1,9 +1,15 @@
-<ion-view title="{{concept}}">
-    <ion-content class="padding">
+<ion-view title="{{nav.concept}}">
+
+    <ion-nav-bar class="bar-positive">
+        <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
+        <button ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag})" class="button button-icon icon ion-chevron-left"></button>
+    </ion-nav-bar>
+
+    <ion-content>
         <div class="list">
             <a class="item"
                 ng-repeat="element in reportElements | filter:search | orderBy:['EntityRegistrantName','-FiscalYear']"
-                ui-sref="disclosures.fact({ concept: concept, aid: element.AccessionNumber })">
+                ui-sref="disclosures.fact({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : nav.tag , concept : nav.concept, aid : element.AccessionNumber })">
                 {{element.EntityRegistrantName}}
             </a>
         </div>
