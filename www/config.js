@@ -1,10 +1,22 @@
 'use strict';
 
 angular.module('disclosures', ['lodash', 'ionic', 'disclosures.api'])
-.run(function($rootScope, $ionicPlatform) {
+.run(function($rootScope, $ionicPlatform, $ionicLoading) {
 	    
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-	 console.error(error);	      
+	 console.error(error);
+     $ionicLoading.hide();
+  });
+
+  $rootScope.$on('$stateChangeStart', function() {
+    $ionicLoading.show({
+       template: 'Please Wait...',
+       delay: 900
+    });
+  });
+
+  $rootScope.$on('$stateChangeSuccess', function() {
+    $ionicLoading.hide();
   });
 	
   $ionicPlatform.ready(function() {

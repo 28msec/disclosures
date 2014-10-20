@@ -1,6 +1,7 @@
 'use strict';
 angular.module('disclosures')
-    .controller('DisclosuresCtrl', function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, DisclosuresAPI) {
+    .controller('DisclosuresCtrl',
+      function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, DisclosuresAPI) {
 
         $scope.nav = {};
 
