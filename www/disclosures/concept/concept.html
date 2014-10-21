@@ -19,7 +19,7 @@
         <div class="list">
             <a class="item"
                 ng-repeat="element in reportElements | filter:search | orderBy:['EntityRegistrantName','-FiscalYear']"
-                ui-sref="disclosures.fact({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : nav.tag , concept : nav.concept, aid : element.AccessionNumber })">
+                ui-sref="disclosures.fact({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : nav.tag , concept : nav.concept, aid : element.AccessionNumber, company: element.EntityRegistrantName })">
                 {{element.EntityRegistrantName}}
             </a>
         </div>
