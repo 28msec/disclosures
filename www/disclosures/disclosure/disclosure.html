@@ -6,17 +6,22 @@
         <button ui-sref="disclosures.filter()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-bar>
 
+    <ion-header-bar class="bar bar-subheader item-input-inset">
+        <div class="col-50 buttonbar">
+          <a class="col-25 item button ion-home" ui-sref="disclosures.startpage()"></a>
+          <a class="col-75 item button ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+        </div>
+        <label class="col-50 item-input-wrapper">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+        <input type="search"
+               placeholder="Filter..."
+               ng-model="search"
+               ng-focus="searchFocused = true"
+               ng-blur="searchFocused = false"
+               ng-change="scrollTop()">
+            </label>
+    </ion-header-bar>
 
-
-            <ion-header-bar class="bar-light bar-header bar-subheader">
-                <input type="search"
-                       placeholder="Filter..."
-                       ng-model="search"
-                       ng-focus="searchFocused = true"
-                       ng-blur="searchFocused = false"
-                       ng-change="scrollTop()">
-                <!-- TODO: Add close button http://codepen.io/ionic/pen/mFygh -->
-            </ion-header-bar>
 
             <ion-tabs class="tabs-positive">
 

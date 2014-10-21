@@ -9,10 +9,10 @@
     <ion-side-menu expose-aside-when="large">
         <ion-content>
             <div class="list">
-              <a ng-class="{ active : nav.page == 'filter' }" ui-sref="disclosures.filter()" class="item">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
-              <a ng-class="{ active : nav.page == 'concept' }" ng-show="nav.concept" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })" class="item">{{ nav.concept }}</a>
-              <a ng-class="{ active : nav.page == 'company' }" ng-show="nav.company" ui-sref="disclosures.concept({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag, concept : nav.concept })" class="item">{{ nav.company }}</a>
-              <a ng-show="nav.aid" class="item active">Reported Fact</a>
+              <a ng-class="{ active : nav.page == 'filter' }" ui-sref="disclosures.filter()" class="ion-chevron-right item">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+              <a ng-class="{ active : nav.page == 'concept' }" ng-show="nav.concept" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })" class="item ion-chevron-right">{{ nav.concept }}</a>
+              <a ng-class="{ active : nav.page == 'company' }" ng-show="nav.company" ui-sref="disclosures.concept({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag, concept : nav.concept })" class="item ion-chevron-right">{{ nav.company }}</a>
+              <a ng-show="nav.aid" class="item active ion-chevron-right">Reported Fact</a>
             </div>
         </ion-content>
     </ion-side-menu>
