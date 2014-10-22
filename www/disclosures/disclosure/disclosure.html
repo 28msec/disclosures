@@ -1,22 +1,20 @@
 
 <ion-view title="Disclosures">
 
-    <ion-nav-bar class="bar-positive">
-        <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
-        <button ui-sref="disclosures.filter()" class="button button-icon icon ion-chevron-left"></button>
-    </ion-nav-bar>
+    <ion-header-bar class="bar bar-dark">
+          <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
+          <a class="col-75 item button button-light ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+          <h1></h1>
+    </ion-header-bar>
 
-
-
-            <ion-header-bar class="bar-light bar-header bar-subheader">
-                <input type="search"
-                       placeholder="Filter..."
-                       ng-model="search"
-                       ng-focus="searchFocused = true"
-                       ng-blur="searchFocused = false"
-                       ng-change="scrollTop()">
-                <!-- TODO: Add close button http://codepen.io/ionic/pen/mFygh -->
-            </ion-header-bar>
+    <ion-header-bar class="bar-subheader">
+        <input type="search"
+               placeholder="Filter..."
+               ng-model="search"
+               ng-focus="searchFocused = true"
+               ng-blur="searchFocused = false"
+               ng-change="scrollTop()">
+    </ion-header-bar>
 
             <ion-tabs class="tabs-positive">
 

@@ -4,7 +4,7 @@ angular.module('disclosures')
     .config(function ($stateProvider) {
         $stateProvider
             .state('disclosures.fact', {
-                url: '/:fiscalYear/:fiscalPeriod/:tag/:concept/:aid',
+                url: '/:fiscalYear/:fiscalPeriod/:tag/:concept/:aid/:company',
                 templateUrl: 'disclosures/fact/fact.html',
                 controller: 'FactCtrl',
                 resolve: {

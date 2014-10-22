@@ -1,14 +1,16 @@
 
 <ion-view title="Filter">
 
-    <ion-nav-bar class="bar-positive">
-        <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
-        <button ui-sref="disclosures.start()" class="button button-icon icon ion-chevron-left"></button>
 
-       <ion-nav-buttons side="right">
-            <button ui-sref="disclosures.disclosure(filter)" class="button button-icon icon ion-chevron-right"></button>
-       </ion-nav-buttons>
-    </ion-nav-bar>
+    <ion-header-bar class="bar bar-dark">
+        <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
+        <h1 class="title"></h1>
+        <button ui-sref="disclosures.disclosure(filter)" class="button button-icon icon ion-chevron-right"></button>
+    </ion-header-bar>
+
+    <ion-header-bar class="bar bar-positive bar-subheader">
+        <h1 class="title">Filter</h1>
+    </ion-header-bar>
 
     <ion-content>
         <div >
