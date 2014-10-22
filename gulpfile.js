@@ -11,7 +11,6 @@ var Config = require('./tasks/config');
 require('./tasks/lint');
 require('./tasks/html');
 require('./tasks/images');
-require('./tasks/fonts');
 require('./tasks/swagger');
 require('./tasks/s3');
 
@@ -57,16 +56,16 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('extras', function () {
-    return gulp.src(['www/**/*.html'], { dot: true })
+    return gulp.src(['www/**/*.html', 'www/**/*.ttf', 'www/**/*.woff'], { dot: true })
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+    return gulp.src(['.tmp', 'dist', '.awspublish-secdisclosures-*'], { read: false }).pipe($.clean());
 });
 
 gulp.task('build', ['clean'], function(){
-    return gulp.start(['lint', 'swagger', 'html', 'images', 'fonts', 'extras']);
+    return gulp.start(['lint', 'swagger', 'html', 'images', 'extras']);
 });
 
 gulp.task('serve', ['build'], function () {
