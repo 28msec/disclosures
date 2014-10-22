@@ -173,7 +173,6 @@ gulp.task('s3-setup', function() {
             return gulp.src('dist/**/*')
                     .pipe(awspublish.gzip())
                     .pipe(parallelize(publisher.publish(), 10))
-                    .pipe(publisher.cache())
                     .pipe(awspublish.reporter());
         })
         .catch(function(error){
