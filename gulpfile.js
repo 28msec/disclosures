@@ -65,7 +65,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean'], function(){
-    return gulp.start(['lint', 'swagger', 'html', 'images', 'extras']);
+    return $.runSequence(['lint', 'swagger', 'html', 'images', 'extras']);
 });
 
 gulp.task('serve', ['build'], function () {
@@ -83,8 +83,8 @@ gulp.task('serve', ['build'], function () {
 
 gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
 
-gulp.task('setup', ['load-config', 'build'], function(){
-    return gulp.start('s3-setup');
+gulp.task('setup', function(){
+    return $.runSequence('clean', ['lint', 'swagger', 'html', 'images', 'extras'], 'load-config', 's3-setup');
 });
 
 gulp.task('teardown', ['load-config'], function(){
