@@ -10,7 +10,7 @@ var minimist = require('minimist');
 
 var knownOptions = {
     string: 'build-id',
-    default: { env: process.env.RANDOM_ID }
+    default: { 'build-id': process.env.RANDOM_ID }
 };
 
 var Config = require('./config');
