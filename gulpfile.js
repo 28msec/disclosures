@@ -56,7 +56,6 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras']);
 
 gulp.task('extras', function () {
     return gulp.src(['www/**/*.html'], { dot: true })
@@ -65,6 +64,10 @@ gulp.task('extras', function () {
 
 gulp.task('clean', function () {
     return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+});
+
+gulp.task('build', ['clean'], function(){
+    return gulp.start(['lint', 'html', 'images', 'fonts', 'extras']);
 });
 
 gulp.task('serve', ['build'], function () {
