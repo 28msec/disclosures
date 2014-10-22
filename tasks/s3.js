@@ -197,7 +197,7 @@ gulp.task('s3-teardown', function(done) {
             console.error(error);
         });
     } else {
-        console.log('We are on master, no teardown.')
+        console.log('We are on master, no teardown.');
         done();
     }
 });

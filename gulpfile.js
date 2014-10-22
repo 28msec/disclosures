@@ -56,7 +56,6 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-
 gulp.task('extras', function () {
     return gulp.src(['www/**/*.html'], { dot: true })
         .pipe(gulp.dest('dist'));
@@ -67,7 +66,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean'], function(){
-    return gulp.start(['lint', 'html', 'images', 'fonts', 'extras']);
+    return gulp.start(['lint', 'swagger', 'html', 'images', 'fonts', 'extras']);
 });
 
 gulp.task('serve', ['build'], function () {
@@ -84,7 +83,6 @@ gulp.task('serve', ['build'], function () {
 });
 
 gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
-
 
 gulp.task('setup', ['load-config', 'build'], function(){
     return gulp.start('s3-setup');
