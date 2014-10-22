@@ -162,7 +162,7 @@ var deleteBucket = function(idempotent) {
         });
 };
 
-gulp.task('s3-setup', function(done) {
+gulp.task('s3-setup', function() {
     var idempotent = true;
     init();
     if(!Config.isOnProduction) {
@@ -181,7 +181,11 @@ gulp.task('s3-setup', function(done) {
             console.error(error);
         });
     } else {
-        done();
+        return gulp.src('dist/**/*')
+            .pipe(awspublish.gzip())
+            .pipe(parallelize(publisher.publish(), 10))
+            .pipe(publisher.cache())
+            .pipe(awspublish.reporter());
     }
 });
 
@@ -196,6 +200,7 @@ gulp.task('s3-teardown', function(done) {
             console.error(error);
         });
     } else {
+        console.log('We are on master, no teardown.')
         done();
     }
 });

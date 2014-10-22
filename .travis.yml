@@ -5,7 +5,10 @@ before_script:
 - npm install -g bower gulp
 - bower install
 script:
-- gulp
+- gulp setup
+after_script:
+# teardown will work only for ci not for prod or on master
+- gulp teardown
 env:
   global:
     - RANDOM_ID=$RANDOM
