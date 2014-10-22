@@ -6,19 +6,26 @@ var AWS = require('aws-sdk');
 var gulp = require('gulp');
 var awspublish = require('gulp-awspublish');
 var parallelize = require("concurrent-transform");
+var minimist = require('minimist');
+
+var knownOptions = {
+    string: 'build-id',
+    default: { env: process.env.RANDOM_ID }
+};
 
 var Config = require('./config');
 
 //var headers = {};
 
-var s3, key, secret, region, bucketName, config, publisher;
+var s3, key, secret, region, bucketName, config, publisher, buildId;
 
 var init = function() {
+    buildId = minimist(process.argv.slice(2), knownOptions)['build-id'];
     key = Config.isOnProduction ?  Config.credentials.s3.prod.key : Config.credentials.s3.dev.key;
     secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
     region = Config.credentials.s3.region;
-    bucketName = Config.isOnTravisAndMaster ? 'secdisclosures' : 'secdisclosures-' + process.env.RANDOM_ID;
-    console.log('Bucket Name' + bucketName);
+    bucketName = Config.isOnTravisAndMaster ? 'secdisclosures' : 'secdisclosures-' + buildId;
+    console.log('Bucket Name: ' + bucketName);
     config = {
         accessKeyId: key,
         secretAccessKey: secret,
@@ -111,31 +118,32 @@ var createBucket = function() {
 var deleteBucket = function(idempotent) {
     return listObjects(idempotent)
         .then(function(list){
-            console.log('Deleting objects');
-            console.log(list);
-            var deleteList = [];
-            list.forEach(function(object){
-                deleteList.push({
-                    Key: object.Key,
-                    VersionId: object.VersionId
+            if(list) {
+                //console.log('Deleting objects');
+                var deleteList = [];
+                list.forEach(function(object){
+                    deleteList.push({
+                        Key: object.Key,
+                        VersionId: object.VersionId
+                    });
                 });
-            });
-            var defered = Q.defer();
-            s3.deleteObjects({
-                Bucket: bucketName,
-                Delete: {
-                    Objects: deleteList
-                }
-            }, function(err, data){
-                if (err || data === null) {
-                    console.error(bucketName + err);
-                    defered.reject();
-                } else {
-                    console.log(bucketName + ': bucket deleted');
-                    defered.resolve();
-                }
-            });
-            return defered.promise;
+                var defered = Q.defer();
+                s3.deleteObjects({
+                    Bucket: bucketName,
+                    Delete: {
+                        Objects: deleteList
+                    }
+                }, function(err, data){
+                    if (err || data === null) {
+                        console.error(bucketName + err);
+                        defered.reject();
+                    } else {
+                        console.log(bucketName + ': bucket deleted');
+                        defered.resolve();
+                    }
+                });
+                return defered.promise;
+            }
         })
         .fin(function(){
             var defered = Q.defer();
@@ -162,7 +170,6 @@ gulp.task('s3-setup', function(done) {
         .then(createBucket)
         .then(makeBucketWebsite)
         .then(function(){
-            console.log('Upload to ');
             return gulp.src('dist/**/*')
                     .pipe(awspublish.gzip())
                     .pipe(parallelize(publisher.publish(), 10))
