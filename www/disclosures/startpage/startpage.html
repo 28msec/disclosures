@@ -1,14 +1,18 @@
 <ion-view title="Welcome">
 
-    <ion-nav-bar class="bar-positive" side="right">
-        <ion-nav-buttons side="right">
-            <button ui-sref="disclosures.filter()" class="button button-icon icon ion-chevron-right"></button>
-        </ion-nav-buttons>
-    </ion-nav-bar>
+    <ion-header-bar class="bar bar-dark">
+        <h1 class="title"></h1>
+        <button ui-sref="disclosures.disclosure(filter)" class="button button-icon icon ion-chevron-right"></button>
+    </ion-header-bar>
+
+    <ion-header-bar class="bar bar-positive bar-subheader">
+        <h1 class="title">Disclosure App</h1>
+    </ion-header-bar>
 
     <ion-content>
         <div class="padding">
-           Welcome to our Disclosure App!
+           <p>Welcome to our Disclosure App!</p>
+           <a class="button-light button ion-chevron-right" ui-sref="disclosures.filter()">Start</a>
         </div>
     </ion-content>
 </ion-view>

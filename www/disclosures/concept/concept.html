@@ -1,17 +1,14 @@
 <ion-view title="{{nav.concept}}">
 
-    <ion-nav-bar class="bar bar-positive">
-        <button class="button button-icon ion-navicon" ng-click="toggleLeft()" ng-hide="$exposeAside.active"></button>
-        <button ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag})" class="button button-icon icon ion-chevron-left"></button>
-    </ion-nav-bar>
+    <ion-header-bar class="bar bar-dark">
+           <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
+           <a class="col-33 item button-light button ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+           <a class="col-33 item button-dark button ion-chevron-right" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ nav.concept }}</a>
+           <h1></h1>
+    </ion-header-bar>
 
-    <ion-header-bar class="bar bar-subheader">
-        <div class="buttonbar">
-           <a class="col-10 item button ion-home" ui-sref="disclosures.startpage()"></a>
-           <a class="col-33 item button ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
-           <a class="col-33 item button ion-chevron-right" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ nav.concept }}</a>
-        </div>
-        <h1></h1>
+    <ion-header-bar class="bar bar-positive bar-subheader">
+        <h1 class="title">{{nav.concept}}</h1>
     </ion-header-bar>
 
     <ion-content>
