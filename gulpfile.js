@@ -87,5 +87,9 @@ gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
 
 
 gulp.task('setup', ['load-config', 'build'], function(){
-    gulp.start('s3-setup');
+    return gulp.start('s3-setup');
+});
+
+gulp.task('teardown', ['load-config'], function(){
+    return gulp.start('s3-teardown');
 });
