@@ -41,7 +41,6 @@ var init = function() {
 };
 
 var makeBucketWebsite = function() {
-    console.log('Set website configuration');
     var defered = Q.defer();
     s3.putBucketWebsite(
         {
@@ -49,11 +48,11 @@ var makeBucketWebsite = function() {
             WebsiteConfiguration : Config.credentials.s3.website
         }, function(err) {
             if (err) {
-                console.log(bucketName + ': could not configure for website hosting ' + err);
+                console.log('putBucketWebsite(' + bucketName + '): ' + err);
                 defered.reject();
             }
             else {
-                console.log(bucketName + ': configured for website hosting');
+                console.log('putBucketWebsite(' + bucketName + ')');
                 console.log('Website available at http://' + bucketName + '.s3-website-' + region + '.amazonaws.com/');
                 defered.resolve();
             }
@@ -108,7 +107,7 @@ var createBucket = function() {
             console.error(bucketName + err);
             defered.reject();
         } else {
-            console.log(bucketName + ': bucket created');
+            console.log('createBucket(' + bucketName + ')');
             defered.resolve();
         }
     });
@@ -118,8 +117,8 @@ var createBucket = function() {
 var deleteBucket = function(idempotent) {
     return listObjects(idempotent)
         .then(function(list){
-            if(list) {
-                //console.log('Deleting objects');
+            console.log('listObjects(' + bucketName + ')');
+            if(list && list.length > 0) {
                 var deleteList = [];
                 list.forEach(function(object){
                     deleteList.push({
@@ -135,10 +134,10 @@ var deleteBucket = function(idempotent) {
                     }
                 }, function(err, data){
                     if (err || data === null) {
-                        console.error('listObjects(' + bucketName + '): ' + err);
+                        console.error('deleteObjects(' + bucketName + '): ' + err);
                         defered.reject();
                     } else {
-                        console.log(bucketName + ': bucket deleted');
+                        console.log('deleteObjects(' + bucketName + ')');
                         defered.resolve();
                     }
                 });
@@ -154,7 +153,7 @@ var deleteBucket = function(idempotent) {
                     console.error('deleteBucket(' + bucketName + '): ' + err);
                     defered.reject();
                 } else {
-                    console.log(bucketName + ': bucket deleted');
+                    console.log('deleteBucket(' + bucketName + ')');
                     defered.resolve();
                 }
             });
