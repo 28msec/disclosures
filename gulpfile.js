@@ -64,8 +64,8 @@ gulp.task('clean', function () {
     return gulp.src(['.tmp', 'dist', '.awspublish-secdisclosures-*'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['clean'], function(){
-    return $.runSequence(['lint', 'swagger', 'html', 'images', 'extras']);
+gulp.task('build', ['clean'], function(done){
+    $.runSequence(['load-config', 'lint', 'swagger', 'html', 'images', 'extras'], done);
 });
 
 gulp.task('serve', ['build'], function () {
@@ -81,10 +81,10 @@ gulp.task('serve', ['build'], function () {
         });
 });
 
-gulp.task('default', ['decrypt', 'swagger', 'lint', 'sass']);
+gulp.task('default', ['build']);
 
-gulp.task('setup', function(){
-    return $.runSequence('clean', ['lint', 'swagger', 'html', 'images', 'extras'], 'load-config', 's3-setup');
+gulp.task('setup', function(done){
+    $.runSequence('build', 's3-setup', done);
 });
 
 gulp.task('teardown', ['load-config'], function(){
