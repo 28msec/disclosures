@@ -135,7 +135,7 @@ var deleteBucket = function(idempotent) {
                     }
                 }, function(err, data){
                     if (err || data === null) {
-                        console.error(bucketName + err);
+                        console.error('listObjects(' + bucketName + '): ' + err);
                         defered.reject();
                     } else {
                         console.log(bucketName + ': bucket deleted');
@@ -151,7 +151,7 @@ var deleteBucket = function(idempotent) {
                 Bucket : bucketName
             }, function(err, data) {
                 if ((err || data === null) && !idempotent) {
-                    console.error(bucketName + err);
+                    console.error('deleteBucket(' + bucketName + '): ' + err);
                     defered.reject();
                 } else {
                     console.log(bucketName + ': bucket deleted');
@@ -184,7 +184,6 @@ gulp.task('s3-setup', function() {
         return gulp.src('dist/**/*')
             .pipe(awspublish.gzip())
             .pipe(parallelize(publisher.publish(), 10))
-            .pipe(publisher.cache())
             .pipe(awspublish.reporter());
     }
 });
