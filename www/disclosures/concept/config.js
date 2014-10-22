@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('disclosures.concept', {
-        url: '/:concept',
+        url: '/:fiscalYear/:fiscalPeriod/:tag/:concept',
         templateUrl: 'disclosures/concept/concept.html',
         controller: 'ConceptCtrl',
         resolve: {
@@ -14,7 +14,8 @@ angular
                 	report : 'Disclosures',
                     name: 'name=' + encodeURIComponent($stateParams.concept)
                 };
-                DisclosuresAPI.addToken(params).addFilter(params);
+
+                DisclosuresAPI.addToken(params).addFilter(params, $stateParams);
                 DisclosuresAPI.setAid(null);
                 return DisclosuresAPI.Queries.listReportElements(params)
                 .then(function(elements){                	
