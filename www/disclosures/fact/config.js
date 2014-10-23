@@ -14,14 +14,15 @@ angular.module('disclosures')
                             concept: $stateParams.concept,
                             aid: $stateParams.aid,
                             fiscalPeriod : $stateParams.fiscalPeriod,
-                            fiscalYear : Number.isNaN($stateParams.fiscalYear) ? $stateParams.fiscalYear : Number($stateParams.fiscalYear)
+                            fiscalYear : Number.isNaN(Number($stateParams.fiscalYear)) ? $stateParams.fiscalYear : Number($stateParams.fiscalYear)
                         };
                         DisclosuresAPI.filter.fiscalPeriod = $stateParams.fiscalPeriod;
-                        DisclosuresAPI.filter.fiscalYear = Number.isNaN($stateParams.fiscalYear) ? $stateParams.fiscalYear : Number($stateParams.fiscalYear);
+                        DisclosuresAPI.filter.fiscalYear = Number.isNaN(Number($stateParams.fiscalYear)) ? $stateParams.fiscalYear : Number($stateParams.fiscalYear);
                         DisclosuresAPI.filter.tag = $stateParams.tag ? $stateParams.tag : null;
 
                         DisclosuresAPI.addToken(params);
                         DisclosuresAPI.setAid($stateParams.aid);
+                        console.log(params);
                         return DisclosuresAPI.Queries.listFacts(params).then(function(data){
                             return data;
                         });
