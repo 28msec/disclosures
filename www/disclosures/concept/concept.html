@@ -2,8 +2,8 @@
 
     <ion-header-bar class="bar bar-dark">
            <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
-           <a class="col-33 item button-light button ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
-           <a class="col-33 item button-dark button ion-chevron-right" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ nav.concept }}</a>
+           <a class="col-33 item button-dark button" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+           <a class="col-33 item button-dark button" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ nav.concept }}</a>
            <h1></h1>
     </ion-header-bar>
 
