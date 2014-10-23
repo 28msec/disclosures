@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
@@ -22,8 +24,25 @@ gulp.task('env-check', function(done){
     done();
 });
 
-gulp.task('encrypt', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
-gulp.task('decrypt', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
+gulp.task('encrypt', ['env-check'], function(){
+    if(fs.existsSync('credentials.json')) {
+        $.runSequence('encrypt-force');
+    } else {
+        console.error('credentials.json is not found.');
+        process.exit(1);
+    }
+});
+
+gulp.task('decrypt', ['env-check'], function(){
+    if(!fs.existsSync('credentials.json')) {
+        $.runSequence('decrypt-force');
+    } else {
+        $.util.log('credentials.json exists already, do nothing');
+    }
+});
+
+gulp.task('encrypt-force', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
+gulp.task('decrypt-force', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
 
 gulp.task('load-config', ['decrypt'], function(done){
     var fs = require('fs');
