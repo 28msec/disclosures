@@ -5,4 +5,12 @@ before_script:
 - npm install -g bower gulp
 - bower install
 script:
-- gulp
+- gulp setup
+after_script:
+# teardown will work only for ci not for prod or on master
+- gulp teardown
+env:
+  global:
+    - RANDOM_ID=$RANDOM
+    #TRAVIS_SECRET_KEY
+    - secure: NFUDjYBeX4CRz0dTZMgUHEYmBJk7z1gQPc43ebuNDgZKewy5z0GdJm4OMpDS5hZM79PDe9QzsMRw7Xva+RLoQ8J5g0+sA731ng8pv+taUZ5LqHkRiCQ86gImVEn9VvxBVECswtPIeipNK0eN5E66MiVongWzYzJFZ8+nHU1RcmQ=

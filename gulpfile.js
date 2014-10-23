@@ -1,126 +1,111 @@
 'use strict';
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var sh = require('shelljs');
 var fs = require('fs');
-var map = require('map-stream');
 
-var paths = {
-  json: ['package.json'],
-  js: ['gulpfile.js', 'www/**/*.js', '!www/lib/**/*.js'],
-  sass: ['./scss/**/*.scss']
-};
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 
-gulp.task('jslint', function(){
-    var jshint = require('gulp-jshint');
+var bower = require('bower');
+var sh = require('shelljs');
 
-    return gulp.src(paths.js.concat(['!www/modules/*-api.js']))
-        .pipe(jshint())
-        .pipe(jshint.reporter())
-        .pipe(jshint.reporter('fail'));
+var Config = require('./tasks/config');
+
+require('./tasks/lint');
+require('./tasks/html');
+require('./tasks/images');
+require('./tasks/swagger');
+require('./tasks/s3');
+
+gulp.task('env-check', function(done){
+    if(process.env.TRAVIS_SECRET_KEY === undefined) {
+        console.error('environment variable TRAVIS_SECRET_KEY is not set.');
+        process.exit(1);
+    }
+    done();
 });
 
-gulp.task('jsonlint', function(){
-    var jsonlint = require('gulp-jsonlint');
-
-    return gulp.src(paths.json)
-        .pipe(jsonlint())
-        .pipe(jsonlint.reporter())
-        .pipe(map(function(file, cb) {
-            if (!file.jsonlint.success) {
-                process.exit(1);
-            }
-            cb(null, file);
-        }));
+gulp.task('encrypt', ['env-check'], function(){
+    if(fs.existsSync('credentials.json')) {
+        $.runSequence('encrypt-force');
+    } else {
+        console.error('credentials.json is not found.');
+        process.exit(1);
+    }
 });
 
-gulp.task('lint', ['jslint', 'jsonlint']);
+gulp.task('decrypt', ['env-check'], function(){
+    if(!fs.existsSync('credentials.json')) {
+        $.runSequence('decrypt-force');
+    } else {
+        $.util.log('credentials.json exists already, do nothing');
+    }
+});
 
-gulp.task('default', ['swagger', 'lint', 'sass']);
+gulp.task('encrypt-force', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
+gulp.task('decrypt-force', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
 
-gulp.task('sass', function() {
-  return gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'));
+gulp.task('load-config', ['decrypt'], function(done){
+    var fs = require('fs');
+    Config.credentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));
+    done();
 });
 
 gulp.task('watch', function() {
-    return gulp.watch(paths.sass, ['sass']);
+    return gulp.watch(Config.paths.sass, ['sass']);
 });
 
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-    });
-});
-
-gulp.task('swagger', function(done){
-    var request = require('request');
-    var Q = require('q');
-    var CodeGen = require('swagger-js-codegen').CodeGen;
-    var apis = [
-        {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/queries.json',
-            moduleName: 'queries',
-            className: 'QueriesAPI'
-        }, {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/session.json',
-            moduleName: 'session',
-            className: 'SessionAPI'
-        }, {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/reports.json',
-            moduleName: 'reports',
-            className: 'ReportsAPI'
-        }
-    ];
-    var dest = 'www/modules';
-    var promises = [];
-    apis.forEach(function(api){
-        var deferred = Q.defer();
-        request({
-            uri: api.swagger,
-            method: 'GET'
-        }, function(error, response, body){
-            if(error || response.statusCode !== 200) {
-                deferred.reject('Error while fetching ' + api.swagger + ': ' + (error || body));
-            } else {
-                var swagger = JSON.parse(body);
-                var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
-                console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
-                fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
-                deferred.resolve();
-            }
-        });
-        promises.push(deferred.promise);
-    });
-    Q.all(promises).then(function(){
-        done();
-    }).catch(function(error){
-        console.error(error);
-        process.exit(1);
+          $.gutil.log('bower', $.gutil.colors.cyan(data.id), data.message);
     });
 });
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
     console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
+      '  ' + $.gutil.colors.red('Git is not installed.'),
       '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+      '\n  Download git here:', $.gutil.colors.cyan('http://git-scm.com/downloads') + '.',
+      '\n  Once git is installed, run \'' + $.gutil.colors.cyan('gulp install') + '\' again.'
     );
     process.exit(1);
   }
   done();
+});
+
+gulp.task('extras', function () {
+    return gulp.src(['www/**/*.html', 'www/**/*.ttf', 'www/**/*.woff'], { dot: true })
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('clean', function () {
+    return gulp.src(['.tmp', 'dist', '.awspublish-secdisclosures-*'], { read: false }).pipe($.clean());
+});
+
+gulp.task('build', ['clean'], function(done){
+    $.runSequence(['load-config', 'lint', 'swagger', 'html', 'images', 'extras'], done);
+});
+
+gulp.task('serve', ['build'], function () {
+    var connect = require('connect');
+    var serveStatic = require('serve-static');
+
+    var app = connect().use(serveStatic('dist'));
+
+    require('http').createServer(app)
+        .listen(9000)
+        .on('listening', function () {
+            console.log('Started connect web server on http://localhost:9000');
+        });
+});
+
+gulp.task('default', ['build']);
+
+gulp.task('setup', function(done){
+    $.runSequence('build', 's3-setup', done);
+});
+
+gulp.task('teardown', ['load-config'], function(){
+    return gulp.start('s3-teardown');
 });

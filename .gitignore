@@ -1,4 +1,7 @@
 .idea/
+.tmp/
+.sass-cache/
+dist/
 node_modules/
 bower_components/
 www/lib
@@ -7,3 +10,5 @@ www/css/ionic.app.min.css
 www/modules/*-api.js
 platforms/ios
 *.swp
+credentials.json
+.awspublish-*

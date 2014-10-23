@@ -3,28 +3,29 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <title>Disclosures</title>
 
+        <!-- build:css css/ionic.app.css -->
         <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-
         <link href="css/ionic.app.css" rel="stylesheet">
+        <!-- endbuild -->
 
-        <!-- Bower Components -->
+        <!-- 404 in development mode -->
+        <script src="cordova.js"></script>
+
+        <!-- build:js scripts/main.js -->
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <script src="lib/lodash/dist/lodash.js"></script>
 
-        <!-- cordova script (this will be a 404 during development) -->
-        <script src="cordova.js"></script>
 
-        <!-- Modules -->
         <script src="modules/lodash.js"></script>
         <script src="modules/queries-api.js"></script>
         <script src="modules/session-api.js"></script>
         <script src="modules/reports-api.js"></script>
         <script src="modules/disclosures.js"></script>
 
-        <!-- App -->
         <script src="config.js"></script>
 
         <script src="disclosures/config.js"></script>
@@ -44,7 +45,7 @@
 
         <script src="disclosures/fact/config.js"></script>
         <script src="disclosures/fact/fact.js"></script>
-
+        <!-- endbuild -->
     </head>
 
     <body>
