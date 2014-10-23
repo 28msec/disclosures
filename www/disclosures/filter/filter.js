@@ -2,7 +2,7 @@
 
 angular
 .module('disclosures')
-.controller('FilterCtrl', function($scope, DisclosuresAPI, filterParameters){
+.controller('FilterCtrl', [ '$scope', 'DisclosuresAPI', 'filterParameters', function($scope, DisclosuresAPI, filterParameters){
 	
     $scope.filter = DisclosuresAPI.filter;
     $scope.filterParameters = filterParameters;
@@ -18,5 +18,5 @@ angular
 
     $scope.$watch('filter', $scope.filterChange, true);
 
-})
+}])
 ;

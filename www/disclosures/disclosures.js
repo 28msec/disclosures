@@ -1,6 +1,6 @@
 'use strict';
 angular.module('disclosures')
-    .controller('DisclosuresCtrl',
+    .controller('DisclosuresCtrl',[ '_','$scope','$stateParams','$state','$ionicSideMenuDelegate','DisclosuresAPI',
       function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, DisclosuresAPI) {
 
         $scope.nav = {};
@@ -24,5 +24,5 @@ angular.module('disclosures')
             }
         ];
 
-    })
+    }])
 ;

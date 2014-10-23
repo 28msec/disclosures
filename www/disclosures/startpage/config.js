@@ -2,7 +2,7 @@
 
 angular
     .module('disclosures')
-    .config(function ($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('disclosures.start', {
                 url: '/index',
@@ -11,5 +11,5 @@ angular
                 resolve: {
                 }
             });
-    })
+    }])
 ;
