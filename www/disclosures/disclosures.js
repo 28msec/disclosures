@@ -4,6 +4,7 @@ angular.module('disclosures')
       function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, DisclosuresAPI) {
 
         $scope.nav = {};
+        $scope.isReverse = false;
 
         $scope.filterChange = function() {
           $scope.nav.fiscalYear = DisclosuresAPI.filter.fiscalYear;
@@ -14,6 +15,17 @@ angular.module('disclosures')
         $scope.toggleLeft = function() {
             $ionicSideMenuDelegate.toggleLeft();
         };
+
+        $scope.rev = function(isReverse) {
+           $scope.isReverse = isReverse;
+        };
+
+        $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+           document.getElementById("animcontainer").className = $scope.isReverse ? 'slide-right-left' : 'slide-left-right';
+           $scope.isReverse = false;
+        });
+
+        $scope.rev(false);
 
         $scope.leftButtons = [
             {

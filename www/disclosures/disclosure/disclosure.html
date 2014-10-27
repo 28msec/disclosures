@@ -2,18 +2,21 @@
 <ion-view title="Disclosures">
 
     <ion-header-bar class="bar bar-dark">
-          <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
+          <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()" ng-click="rev(true);"></a>
           <a class="col-75 item button button-light ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
           <h1></h1>
     </ion-header-bar>
 
-    <ion-header-bar class="bar-subheader">
-        <input type="search"
-               placeholder="Filter..."
-               ng-model="search"
-               ng-focus="searchFocused = true"
-               ng-blur="searchFocused = false"
-               ng-change="scrollTop()">
+    <ion-header-bar class="bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios7-search"></i>
+            <input type="search"
+                   placeholder="Filter..."
+                   ng-model="search"
+                   ng-focus="searchFocused = true"
+                   ng-blur="searchFocused = false"
+                   ng-change="scrollTop()">
+        </label>
     </ion-header-bar>
 
             <ion-tabs class="tabs-positive">
