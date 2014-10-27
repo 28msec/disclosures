@@ -2,9 +2,9 @@
 
     <ion-header-bar class="bar bar-dark">
         <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
-        <a class="col-25 item button button-light ion-chevron-right" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
-        <a class="col-25 item button button-dark ion-chevron-right" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ nav.concept }}</a>
-        <a class="col-25 item button button-light ion-chevron-right" ui-sref="disclosures.concept({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag, concept : nav.concept })">{{ nav.company }}</a>
+        <a class="col-25 item button button-dark" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+        <a class="col-25 item button button-dark" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ nav.concept }}</a>
+        <a class="col-25 item button button-dark" ui-sref="disclosures.concept({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag, concept : nav.concept })">{{ nav.company }}</a>
         <h1></h1>
     </ion-header-bar>
 

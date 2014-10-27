@@ -2,7 +2,7 @@
 
 angular
 .module('disclosures')
-.controller('FactCtrl', function($scope, $stateParams, $sce, fact){
+.controller('FactCtrl', [ '$scope', '$stateParams', '$sce', 'fact', function($scope, $stateParams, $sce, fact){
     $scope.concept = $stateParams.concept;
     $scope.nav.aid = $stateParams.aid;
     $scope.nav.concept = $stateParams.concept;
@@ -20,4 +20,4 @@ angular
     } else {
     	$scope.missing = true;
     }
-});
+}]);

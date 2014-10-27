@@ -2,8 +2,9 @@
 
 angular
 .module('disclosures')
-.controller('ConceptCtrl', function($scope, $stateParams, reportElements){	
+.controller('ConceptCtrl', ['$scope', '$stateParams', 'reportElements', function($scope, $stateParams, reportElements){
     $scope.reportElements = reportElements;
+    $scope.conceptLabel = reportElements.length > 0 ? reportElements[0].Label : $stateParams.concept;
     $scope.nav.concept = $stateParams.concept;
     $scope.nav.fiscalYear = $stateParams.fiscalYear;
     $scope.nav.fiscalPeriod = $stateParams.fiscalPeriod;
@@ -11,5 +12,5 @@ angular
     $scope.nav.aid = undefined;
     $scope.nav.company = 'Company';
     $scope.nav.page = 'company';
-})
+}])
 ;

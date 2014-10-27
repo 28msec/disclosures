@@ -2,7 +2,7 @@
 
 angular
 .module('disclosures')
-.config(function ($stateProvider) {
+.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
         .state('disclosures.filter', {
             url: '/filter',
@@ -14,5 +14,5 @@ angular
                 }]
             }
         });
-})
+}])
 ;

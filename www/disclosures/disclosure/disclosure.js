@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('disclosures')
-    .controller('DisclosureCtrl', function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, disclosures, DisclosuresAPI) {
+    .controller('DisclosureCtrl', [
+        '_','$scope','$stateParams','$state','$ionicSideMenuDelegate','disclosures','DisclosuresAPI',
+        function(_, $scope, $stateParams, $state, $ionicSideMenuDelegate, disclosures, DisclosuresAPI) {
         var report = disclosures.report;
         var reportElements = disclosures.reportElements;
         $scope.nav.fiscalYear = $stateParams.fiscalYear;
@@ -75,4 +77,4 @@ angular.module('disclosures')
             $state.go('disclosures.concept', params, null);
         };
 
-    });
+    }]);
