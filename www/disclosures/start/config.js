@@ -6,8 +6,8 @@ angular
         $stateProvider
             .state('disclosures.start', {
                 url: '/index',
-                templateUrl: 'disclosures/startpage/startpage.html',
-                controller: 'StartpageCtrl',
+                templateUrl: 'disclosures/start/start.html',
+                controller: 'StartCtrl',
                 resolve: {
                 }
             });
