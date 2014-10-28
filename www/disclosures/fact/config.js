@@ -3,8 +3,8 @@
 angular.module('disclosures')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('disclosures.fact', {
-                url: '/:fiscalYear/:fiscalPeriod/:tag/:concept/:aid/:company',
+            .state('disclosures.start.filter.disclosure.concept.fact', {
+                url: '/:aid/:company',
                 templateUrl: 'disclosures/fact/fact.html',
                 controller: 'FactCtrl',
                 resolve: {

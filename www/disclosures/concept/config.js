@@ -4,8 +4,8 @@ angular
 .module('disclosures')
 .config(function ($stateProvider) {
     $stateProvider
-    .state('disclosures.concept', {
-        url: '/:fiscalYear/:fiscalPeriod/:tag/:concept',
+    .state('disclosures.start.filter.disclosure.concept', {
+        url: '/:concept',
         templateUrl: 'disclosures/concept/concept.html',
         controller: 'ConceptCtrl',
         resolve: {

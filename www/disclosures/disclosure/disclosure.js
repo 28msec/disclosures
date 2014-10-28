@@ -74,7 +74,7 @@ angular.module('disclosures')
             params.tag = DisclosuresAPI.filter.tag;
             /*if (DisclosuresAPI.aid) $state.go('disclosures.fact', { "aid" : DisclosuresAPI.aid, "concept": params.concept }, null);
              else */
-            $state.go('disclosures.concept', params, null);
+            $state.go('disclosures.start.filter.concept', params, null);
         };
 
     }]);
