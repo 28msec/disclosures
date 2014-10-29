@@ -6,9 +6,13 @@ angular
         $stateProvider
             .state('disclosures.start', {
                 url: '/index',
-                templateUrl: 'disclosures/startpage/startpage.html',
-                controller: 'StartpageCtrl',
-                resolve: {
+                views : {
+                    'main@disclosures' : {
+                        templateUrl: 'disclosures/startpage/startpage.html',
+                        controller: 'StartpageCtrl',
+                        resolve: {
+                        }
+                    }
                 }
             });
     }])
