@@ -9,9 +9,7 @@ angular
                 views : {
                     'main@disclosures' : {
                         templateUrl: 'disclosures/startpage/startpage.html',
-                        controller: 'StartpageCtrl',
-                        resolve: {
-                        }
+                        controller: 'StartpageCtrl'
                     }
                 }
             });
