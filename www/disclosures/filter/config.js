@@ -4,14 +4,18 @@ angular
 .module('disclosures')
 .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
-        .state('disclosures.filter', {
+        .state('disclosures.start.filter', {
             url: '/filter',
-            templateUrl: 'disclosures/filter/filter.html',
-            controller: 'FilterCtrl',
-            resolve: {
-                filterParameters: ['DisclosuresAPI', function(DisclosuresAPI) {
-                	return DisclosuresAPI.Reports.getParameters({});                	
-                }]
+            views : {
+                'main@disclosures' : {
+                    templateUrl: 'disclosures/filter/filter.html',
+                    controller: 'FilterCtrl',
+                    resolve: {
+                        filterParameters: ['DisclosuresAPI', function(DisclosuresAPI) {
+                            return DisclosuresAPI.Reports.getParameters({});
+                        }]
+                    }
+                }
             }
         });
 }])
