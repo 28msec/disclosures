@@ -8,8 +8,8 @@ angular
                 url: '/index',
                 views : {
                     'main@disclosures' : {
-                        templateUrl: 'disclosures/startpage/startpage.html',
-                        controller: 'StartpageCtrl'
+                        templateUrl: 'disclosures/start/start.html',
+                        controller: 'StartCtrl'
                     }
                 }
             });
