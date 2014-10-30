@@ -2,7 +2,6 @@
     <ion-header-bar class="bar bar-dark">
         <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
         <h1 class="title"></h1>
-        <button ui-sref="disclosures.start.filter.disclosure(filter)" class="button button-icon icon ion-chevron-right"></button>
     </ion-header-bar>
 
     <ion-header-bar class="bar bar-positive bar-subheader">
@@ -10,7 +9,12 @@
     </ion-header-bar>
 
     <ion-content>
-        <div>
+
+        <div >
+            <div class="item">
+              <a ui-sref="disclosures.start.filter.disclosure(filter)" class="button button-block">Continue to concept selection</a>
+            </div>
+
             <div class="item item-divider uppercase">
                 Entity Group
             </div>               
@@ -34,7 +38,9 @@
             <div class="item item-text-wrap">
                <ion-radio name="periods" ng-repeat="period in filterParameters.periods" ng-value="period" ng-model="filter.fiscalPeriod">{{ period }}</ion-radio>
             </div>
-            
+            <div class="item">
+                <a ui-sref="disclosures.disclosure(filter)" class="button button-block">Continue to concept selection</a>
+            </div>
         </div>
     </ion-content>
 </ion-view>
