@@ -2,8 +2,8 @@
 
     <ion-header-bar class="bar bar-dark">
            <a class="item button-dark button-icon button ion-home" ui-sref="disclosures.start()"></a>
-           <a class="col-33 item button-dark button" ui-sref="disclosures.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
-           <a class="col-33 item button-dark button" ui-sref="disclosures.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ conceptLabel }}</a>
+           <a class="col-33 item button-dark button" ui-sref="disclosures.start.filter()">{{ nav.tag }} {{ nav.fiscalYear }} {{ nav.fiscalPeriod }}</a>
+           <a class="col-33 item button-dark button" ui-sref="disclosures.start.filter.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod, tag : nav.tag })">{{ conceptLabel }}</a>
            <h1></h1>
     </ion-header-bar>
 
@@ -16,7 +16,7 @@
         <div class="list">
             <a class="item"
                 ng-repeat="element in reportElements | filter:search | orderBy:['EntityRegistrantName','-FiscalYear']"
-                ui-sref="disclosures.fact({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : nav.tag , concept : nav.concept, aid : element.AccessionNumber, company: element.EntityRegistrantName })">
+                ui-sref="disclosures.start.filter.disclosure.concept.fact({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : nav.tag , concept : nav.concept, aid : element.AccessionNumber, company: element.EntityRegistrantName })">
                 {{element.EntityRegistrantName}}
             </a>
         </div>
