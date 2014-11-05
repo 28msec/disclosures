@@ -7,9 +7,9 @@ before_install:
 install:
   - sudo apt-get install -qq gcc-4.8 g++-4.8 
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-before_script:
-- npm install -g bower gulp
-- bower install
+  - npm install -g bower gulp
+  - npm install
+  - bower install
 script:
 - gulp setup
 after_script:
