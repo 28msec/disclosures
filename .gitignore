@@ -12,3 +12,4 @@ platforms/ios
 *.swp
 credentials.json
 .awspublish-*
+.DS_Store
