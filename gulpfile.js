@@ -15,6 +15,7 @@ require('./tasks/html');
 require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
+require('./tasks/ios');
 
 gulp.task('env-check', function(done){
     if(process.env.TRAVIS_SECRET_KEY === undefined) {
