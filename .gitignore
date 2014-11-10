@@ -6,6 +6,8 @@ node_modules/
 bower_components/
 www/lib
 www/css/ionic.app.css
+www/css/ionic.app.css.min.css
+www/css/ionic.app.css.map
 www/css/ionic.app.min.css
 www/modules/*-api.js
 platforms/ios

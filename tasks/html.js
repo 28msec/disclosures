@@ -2,12 +2,13 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var sass = require('gulp-ruby-sass');
 
 var Config = require('./config');
 
 gulp.task('sass', function() {
     return gulp.src('./scss/ionic.app.scss')
-        .pipe($.sass())
+        .pipe(sass({ loadPath: '.' }))
         .pipe(gulp.dest('./www/css/'))
         .pipe($.minifyCss({
             keepSpecialComments: 0
