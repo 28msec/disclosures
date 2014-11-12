@@ -2,7 +2,7 @@
 
 angular
 .module('disclosures')
-.controller('FactCtrl', function($scope, $stateParams, $sce, fact){
+.controller('FactCtrl', [ '$scope', '$stateParams', '$sce', 'fact', function($scope, $stateParams, $sce, fact){
     $scope.concept = $stateParams.concept;
     $scope.nav.aid = $stateParams.aid;
     $scope.nav.concept = $stateParams.concept;
@@ -16,8 +16,12 @@ angular
 	    $scope.factEntity = $stateParams.company;
 	    $scope.factFiscalYear = fact.FactTable[0].Aspects['sec:FiscalYear'];
 	    $scope.factFiscalPeriod = fact.FactTable[0].Aspects['sec:FiscalPeriod'];
+        $scope.company = fact.FactTable[0].Labels[fact.FactTable[0].Aspects['xbrl:Entity']];
+        $scope.conceptLabel = fact.FactTable[0].Labels[fact.FactTable[0].Aspects['xbrl:Concept']];
         $scope.missing = false;
     } else {
     	$scope.missing = true;
+        $scope.nav.company = $stateParams.company;
+        $scope.conceptLabel = $stateParams.concept;
     }
-});
+}]);

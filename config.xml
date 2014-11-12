@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.disclosures330189" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.28.disclosures" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>disclosures</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Explore and compare Disclosures filed to the SEC.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="hello@28.io" href="http://28.io">
+      28msec GmbH.
     </author>
   <content src="index.html"/>
   <access origin="*"/>
