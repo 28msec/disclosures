@@ -5,42 +5,22 @@
     </ion-header-bar>
 
     <ion-header-bar class="bar bar-positive bar-subheader">
-        <h1 class="title">Filter</h1>
+        <h1 class="title">Entity Group</h1>
     </ion-header-bar>
 
     <ion-content>
-
-        <div >
-            <div class="item">
-              <a ui-sref="disclosures.start.filter.disclosure(filter)" class="button button-block">Continue to concept selection</a>
-            </div>
-
-            <div class="item item-divider uppercase">
-                Entity Group
-            </div>               
-            <div class="item item-text-wrap">
-               <ion-radio name="tags" ng-repeat="tag in filterParameters.tags" ng-value="tag" ng-model="filter.tag">{{ tag }}</ion-radio>
-               <ion-radio name="tags" value="ALL" ng-model="filter.tag">All</ion-radio>
-            </div>
-
-            <div class="item item-divider uppercase">
-                Fiscal Year
-            </div>
-            <div class="item item-text-wrap">
-                <ion-radio ng-show="allYears" name="allyears" ng-repeat="year in filterParameters.years" ng-value="year" ng-model="filter.fiscalYear">{{ year }}</ion-radio>
-                <ion-radio ng-hide="allYears" name="years" ng-repeat="year in recentYears" ng-value="year" ng-model="filter.fiscalYear">{{ year }}</ion-radio>
-                <ion-radio ng-hide="allYears" name="years" ng-click="showAllYears()">...</ion-radio>
-            </div>
-
-            <div class="item item-divider uppercase">
-                Fiscal Period
-            </div>               
-            <div class="item item-text-wrap">
-               <ion-radio name="periods" ng-repeat="period in filterParameters.periods" ng-value="period" ng-model="filter.fiscalPeriod">{{ period }}</ion-radio>
-            </div>
-            <div class="item">
-                <a ui-sref="disclosures.disclosure(filter)" class="button button-block">Continue to concept selection</a>
-            </div>
+       <div class="padding">
+        <div class="list">
+            <a class="item"
+                ng-repeat="tag in filterParameters.tags"
+                ui-sref="disclosures.start.filter.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : tag })">
+                {{ tag }}
+            </a>
+            <a class="item"                
+                ui-sref="disclosures.start.filter.disclosure({ fiscalYear : nav.fiscalYear, fiscalPeriod : nav.fiscalPeriod , tag : 'ALL' })">
+                All
+            </a>
         </div>
+       </div>
     </ion-content>
 </ion-view>
