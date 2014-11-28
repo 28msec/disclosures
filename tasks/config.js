@@ -11,7 +11,11 @@ module.exports = {
         js: ['gulpfile.js', 'www/**/*.js', '!www/lib/**/*.js'],
         sass: ['./scss/**/*.scss'],
         credentials: 'credentials.json',
-        dist: 'dist/**/*'
+        dist: 'dist/**/*',
+        app: 'www',
+        dist: 'dist',
+        tmp: '.tmp',
+        index: 'www/*.html'
     },
     credentials: {
 
