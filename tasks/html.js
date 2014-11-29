@@ -16,27 +16,6 @@ gulp.task('sass', function() {
         .pipe($.rename({ extname: '.min.css' }))
         .pipe(gulp.dest('./www/css/'));
 });
-/*
-gulp.task('html', ['sass'], function () {
-    var jsFilter = $.filter('**.js');
-    var cssFilter = $.filter('***.css');
-    var assets = $.useref.assets({searchPath: '{.tmp,www}'});
-    return gulp.src('www/*.html')
-        .pipe(assets)
-        .pipe(jsFilter)
-        .pipe($.ngAnnotate())
-        .pipe($.uglify())
-        .pipe(jsFilter.restore())
-        .pipe(cssFilter)
-        .pipe($.csso())
-        .pipe(cssFilter.restore())
-        .pipe(assets.restore())
-        .pipe($.useref())
-        .pipe(gulp.dest('dist'))
-        .pipe($.size());
-});
-*/
-
 
 gulp.task('html', ['sass'], function () {
     var assets = $.useref.assets({ searchPath: '{' + Config.paths.app + ',' + Config.paths.tmp + '}' });
